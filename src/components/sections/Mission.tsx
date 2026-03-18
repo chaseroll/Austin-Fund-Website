@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const ov = { once: true, margin: "-100px" as const };
 
@@ -12,39 +13,60 @@ const wordContainer = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.06,
-      delayChildren: 0.1,
+      staggerChildren: 0.05,
+      delayChildren: 0.15,
     },
   },
 };
 
 const wordVariant = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
+    filter: "blur(0px)",
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
 export default function Mission() {
-  return (
-    <section className="relative py-32 md:py-44">
-      <span className="pointer-events-none absolute right-8 top-24 select-none text-[12rem] font-extralight leading-none text-foreground/[0.03] md:right-16 md:text-[18rem]">
-        01
-      </span>
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
 
-      <div className="relative px-8 md:px-16 lg:px-24">
+  const numberY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden py-36 text-[#0D0E0A] md:py-52"
+    >
+      <motion.span
+        style={{ y: numberY }}
+        className="pointer-events-none absolute right-4 top-16 select-none font-extralight leading-none tracking-tight text-[#0D0E0A]/[0.03] text-[7rem] md:right-16 md:top-20 md:text-[18rem]"
+      >
+        01
+      </motion.span>
+
+      <div className="relative mx-auto max-w-7xl px-6 md:px-16 lg:px-24">
         <div className="max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={ov}
-            transition={{ duration: 0.8 }}
-            className="mb-6 flex items-center gap-4"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-8 flex items-center gap-4"
           >
-            <div className="h-px w-8 bg-foreground/30" />
-            <span className="text-xs font-medium tracking-[0.3em] uppercase text-muted">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={ov}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="h-px w-8 origin-left bg-[#2C2E20]"
+            />
+            <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-[#2C2E20]/60">
               About
             </span>
           </motion.div>
@@ -54,7 +76,7 @@ export default function Mission() {
             initial="hidden"
             whileInView="visible"
             viewport={ov}
-            className="text-4xl font-light leading-tight tracking-tight md:text-5xl lg:text-6xl"
+            className="text-[clamp(2rem,5vw,3.8rem)] font-light leading-[1.15] tracking-[-0.015em] text-[#0D0E0A]"
           >
             {words.map((word, i) => (
               <motion.span
@@ -66,6 +88,7 @@ export default function Mission() {
               </motion.span>
             ))}
           </motion.h2>
+
         </div>
       </div>
     </section>

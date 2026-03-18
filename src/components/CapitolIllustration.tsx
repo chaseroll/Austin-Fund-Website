@@ -23,7 +23,7 @@ export default function CapitolIllustration() {
       fill="none"
       stroke="currentColor"
       strokeWidth="0.75"
-      className="w-full max-w-md text-white/50 lg:max-w-lg"
+      className="w-full max-w-md text-[#EAEAE9]/20 lg:max-w-lg"
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* Dome top ornament */}

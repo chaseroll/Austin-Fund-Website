@@ -1,28 +1,54 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #f5f4f0;
-  --color-foreground: #1a1a1a;
-  --color-muted: #1A1C13;
-  --color-accent: #8a8a8a;
-  --color-border: #1a1a1a;
+  --color-background: #0D0E0A;
+  --color-foreground: #EAEAE9;
+  --color-muted: #6B6D63;
+  --color-accent: #2C2E20;
+  --color-border: #EAEAE9;
+}
+
+html {
+  overscroll-behavior: none;
+  background: #0D0E0A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
   background: var(--color-background);
   color: var(--color-foreground);
-  font-family: "General Sans", system-ui, sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
-  overscroll-behavior: none;
-  background: #0D0E0A;
+  font-family: "General Sans", system-ui, -apple-system, sans-serif;
 }
 
 ::selection {
-  background: #1a1a1a;
-  color: #f5f4f0;
+  background: #2C2E20;
+  color: #EAEAE9;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(234, 234, 233, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(234, 234, 233, 0.2);
+}
+
+@supports (scrollbar-width: thin) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(234, 234, 233, 0.1) transparent;
+  }
 }
 
 @keyframes draw {
@@ -43,5 +69,42 @@ html {
 }
 
 .animate-marquee {
-  animation: marquee 20s linear infinite;
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 25s linear infinite;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 8s ease-in-out infinite;
 }
