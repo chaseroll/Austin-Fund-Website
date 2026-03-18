@@ -38,14 +38,18 @@ export default function PortfolioHero() {
         </svg>
       </div>
 
-      <div className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen opacity-[0.7]">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen opacity-[0.8]">
         <div
-          style={{ background: "radial-gradient(circle, rgba(142, 144, 133, 0.35) 0%, rgba(142, 144, 133, 0) 70%)" }}
-          className="absolute left-[35%] top-[50%] h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2"
+          style={{ background: "radial-gradient(circle, rgba(107, 109, 99, 0.4) 0%, rgba(107, 109, 99, 0) 70%)" }}
+          className="absolute left-[50%] top-[50%] h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2"
         />
         <div
-          style={{ background: "radial-gradient(circle, rgba(107, 109, 99, 0.3) 0%, rgba(107, 109, 99, 0) 70%)" }}
-          className="absolute left-[65%] top-[40%] h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2"
+          style={{ background: "radial-gradient(circle, rgba(142, 144, 133, 0.3) 0%, rgba(142, 144, 133, 0) 70%)" }}
+          className="absolute left-[35%] top-[25%] h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2"
+        />
+        <div
+          style={{ background: "radial-gradient(circle, rgba(234, 234, 233, 0.2) 0%, rgba(234, 234, 233, 0) 70%)" }}
+          className="absolute left-[65%] top-[75%] h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2"
         />
       </div>
 
@@ -56,7 +60,7 @@ export default function PortfolioHero() {
         <BridgeIllustration />
       </motion.div>
 
-      <div className="relative pb-20 md:pb-28" style={{ paddingTop: "35vh" }}>
+      <div className="relative pb-20 md:pb-28" style={{ paddingTop: "40vh" }}>
         <motion.div
           style={{ y: textY }}
           className="mx-auto w-full max-w-7xl px-6 md:px-16 lg:px-24"
