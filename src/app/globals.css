@@ -3,8 +3,8 @@
 @theme inline {
   --color-background: #f5f4f0;
   --color-foreground: #1a1a1a;
-  --color-muted: #8a8a8a;
-  --color-accent: #2D6A4F;
+  --color-muted: #1A1C13;
+  --color-accent: #8a8a8a;
   --color-border: #1a1a1a;
 }
 
@@ -16,10 +16,12 @@ body {
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior: none;
+  background: #0D0E0A;
 }
 
 ::selection {
-  background: #2D6A4F;
+  background: #1a1a1a;
   color: #f5f4f0;
 }
 
@@ -33,4 +35,13 @@ html {
   stroke-dasharray: 2000;
   stroke-dashoffset: 2000;
   animation: draw 3s ease-out forwards;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
 }
