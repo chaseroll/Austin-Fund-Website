@@ -40,10 +40,6 @@ export default function PortfolioHero() {
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen opacity-[0.8]">
         <div
-          style={{ background: "radial-gradient(circle, rgba(107, 109, 99, 0.4) 0%, rgba(107, 109, 99, 0) 70%)" }}
-          className="absolute left-[50%] top-[50%] h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2"
-        />
-        <div
           style={{ background: "radial-gradient(circle, rgba(142, 144, 133, 0.3) 0%, rgba(142, 144, 133, 0) 70%)" }}
           className="absolute left-[35%] top-[25%] h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2"
         />
