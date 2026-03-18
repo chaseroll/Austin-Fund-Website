@@ -38,12 +38,8 @@ export default function Hero() {
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen opacity-[0.8]">
         <div
-          style={{ background: "radial-gradient(circle, rgba(142, 144, 133, 0.3) 0%, rgba(142, 144, 133, 0) 70%)" }}
-          className="absolute left-[35%] top-[25%] h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2"
-        />
-        <div
-          style={{ background: "radial-gradient(circle, rgba(234, 234, 233, 0.2) 0%, rgba(234, 234, 233, 0) 70%)" }}
-          className="absolute left-[65%] top-[75%] h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2"
+          style={{ background: "radial-gradient(circle, rgba(142, 144, 133, 0.35) 0%, rgba(142, 144, 133, 0) 70%)" }}
+          className="absolute -left-[10%] -top-[10%] h-[800px] w-[800px]"
         />
       </div>
 
