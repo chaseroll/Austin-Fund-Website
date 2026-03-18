@@ -39,7 +39,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen opacity-[0.8]">
         <div
           style={{ background: "radial-gradient(circle, rgba(142, 144, 133, 0.35) 0%, rgba(142, 144, 133, 0) 70%)" }}
-          className="absolute -left-[10%] -top-[10%] h-[800px] w-[800px]"
+          className="absolute -left-[25%] -top-[25%] h-[800px] w-[800px]"
         />
       </div>
 
