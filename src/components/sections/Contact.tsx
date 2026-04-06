@@ -20,6 +20,10 @@ export default function Contact() {
               <span className="text-[11px] font-medium tracking-[0.2em] uppercase text-[#EAEAEA]">
                 Austin Fund
               </span>
+              <p className="max-w-sm text-[13px] font-light leading-relaxed text-[#EAEAEA]/75">
+                Pre-seed and seed venture capital for founders
+                at the University of Austin.
+              </p>
               <a
                 href="mailto:info@uaustin.fund"
                 className="group relative mt-1 text-[13px] font-light text-[#EAEAEA]/70 transition-colors duration-500 hover:text-[#EAEAEA]"
