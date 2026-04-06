@@ -80,8 +80,7 @@ export default function PortfolioHero() {
             transition={{ duration: 1, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
             className="mx-auto mt-8 max-w-sm px-6 text-[13px] font-light leading-[1.8] tracking-wide text-[#A2A2A2]"
           >
-            The founders and companies we&apos;re proud to back at the earliest
-            stages.
+            Companies we&apos;ve invested in.
           </motion.p>
         </motion.div>
       </div>

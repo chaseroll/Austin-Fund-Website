@@ -51,7 +51,7 @@ export default function Thesis() {
         >
           <div className="flex items-center justify-between">
             <h3 className="text-[11px] font-medium tracking-[0.2em] uppercase text-[#0D0E0A]/80">
-              University of Austin Venture Fund
+              Austin Fund
             </h3>
             <span className="flex items-center gap-2 text-[11px] font-light tracking-wider text-[#3A3A3A]/70">
               <span className="relative flex h-1.5 w-1.5">

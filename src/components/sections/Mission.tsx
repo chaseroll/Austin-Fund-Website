@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const ov = { once: true, margin: "-80px" as const };
 
 const headline =
-  "Backing the next generation of founders at the University of Austin.";
+  "Backing the next generation of founders.";
 
 export default function Mission() {
   return (

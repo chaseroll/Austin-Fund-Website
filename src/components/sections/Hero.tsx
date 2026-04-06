@@ -86,8 +86,8 @@ export default function Hero() {
             transition={{ duration: 1, delay: 1.3, ease: [0.22, 1, 0.36, 1] }}
             className="mx-auto mt-8 max-w-sm px-6 text-[13px] font-light leading-[1.8] tracking-wide text-[#A2A2A2]"
           >
-            Pre-seed and seed stage venture capital backing
-            university-affiliated founders.
+            Pre-seed and seed venture capital for founders
+            at the University of Austin.
           </motion.p>
 
           <motion.a
