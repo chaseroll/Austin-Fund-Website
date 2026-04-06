@@ -30,7 +30,7 @@ export default function Thesis() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="h-px w-6 origin-center bg-[#3A3A3A]/25"
           />
-          <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-[#3A3A3A]/40">
+          <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-[#3A3A3A]/60">
             Fund I
           </span>
           <motion.div
@@ -51,12 +51,12 @@ export default function Thesis() {
         >
           <div className="flex items-center justify-between">
             <h3 className="text-[11px] font-medium tracking-[0.2em] uppercase text-[#0D0E0A]/80">
-              University of Austin Venture Fund
+              Austin Fund
             </h3>
-            <span className="flex items-center gap-2 text-[11px] font-light tracking-wider text-[#3A3A3A]/50">
+            <span className="flex items-center gap-2 text-[11px] font-light tracking-wider text-[#3A3A3A]/70">
               <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#3A3A3A]/30" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#3A3A3A]/70" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#3A3A3A]/40" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#3A3A3A]/80" />
               </span>
               Raising
             </span>
@@ -82,7 +82,7 @@ export default function Thesis() {
                     <span className="text-xl md:text-2xl">{stat.value}</span>
                   )}
                 </p>
-                <p className="mt-2.5 text-[10px] font-medium tracking-[0.18em] uppercase text-[#3A3A3A]/40">
+                <p className="mt-2.5 text-[10px] font-medium tracking-[0.18em] uppercase text-[#3A3A3A]/60">
                   {stat.label}
                 </p>
               </motion.div>

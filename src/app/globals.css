@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #000000;
+  --color-background: #0A0A0A;
   --color-foreground: #EAEAEA;
   --color-muted: #7A7A7A;
   --color-accent: #3F3F3F;
@@ -10,10 +10,28 @@
 
 html {
   overscroll-behavior: none;
-  background: #000000;
+  background: #0A0A0A;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+}
+
+.hero-full-test {
+  min-height: 100vh;
+  min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-full-test > .hero-content-test {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 body {
