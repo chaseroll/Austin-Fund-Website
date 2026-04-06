@@ -47,7 +47,7 @@ export default function PortfolioHero() {
         </div>
       </motion.div>
 
-      <div className="relative z-[3] flex min-h-screen flex-col items-center justify-center">
+      <div className="relative z-[3] flex min-h-dvh flex-col items-center justify-center">
         <motion.div
           style={{ y: textY }}
           className="flex flex-col items-center text-center"
