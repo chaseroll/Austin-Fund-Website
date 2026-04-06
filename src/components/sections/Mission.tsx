@@ -55,8 +55,8 @@ export default function Mission() {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="mx-auto mt-8 max-w-md text-[14px] font-light leading-[1.8] text-[#0D0E0A]/45"
           >
-            We partner with technical founders building category-defining
-            companies before consensus forms.
+            A university-owned venture fund investing $200K checks via
+            post-money SAFEs at pre-seed and seed.
           </motion.p>
         </div>
       </div>
