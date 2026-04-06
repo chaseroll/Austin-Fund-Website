@@ -20,7 +20,7 @@ export default function Contact() {
               <span className="text-[11px] font-medium tracking-[0.2em] uppercase text-[#EAEAEA]">
                 Austin Fund
               </span>
-              <p className="max-w-sm text-[13px] font-light leading-relaxed text-[#EAEAEA]/60">
+              <p className="max-w-sm text-[13px] font-light leading-relaxed text-[#EAEAEA]/75">
                 Pre-seed and seed stage venture capital backing
                 university-affiliated founders.
               </p>

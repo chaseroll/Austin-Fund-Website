@@ -54,8 +54,8 @@ export default function Navigation() {
       active
         ? isDark ? "text-[#EAEAEA]" : "text-[#0D0E0A]"
         : isDark
-          ? "text-[#EAEAEA]/40 hover:text-[#EAEAEA]"
-          : "text-[#0D0E0A]/40 hover:text-[#0D0E0A]"
+          ? "text-[#EAEAEA]/60 hover:text-[#EAEAEA]"
+          : "text-[#0D0E0A]/60 hover:text-[#0D0E0A]"
     }`;
 
   return (
@@ -184,7 +184,7 @@ export default function Navigation() {
                 transition={{ delay: 0.4 }}
                 className="mt-16 border-t border-[#EAEAEA]/10 pt-6"
               >
-                <p className="text-xs font-light tracking-wider text-[#EAEAEA]/30">
+                <p className="text-xs font-light tracking-wider text-[#EAEAEA]/60">
                   info@uaustin.fund
                 </p>
               </motion.div>
