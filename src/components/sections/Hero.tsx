@@ -18,7 +18,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="hero-full relative overflow-hidden bg-[#0A0A0A] text-[#EAEAEA]"
+      className="relative overflow-hidden bg-[#0A0A0A] text-[#EAEAEA]"
     >
       <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
         <div
@@ -47,7 +47,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      <div className="relative z-[3] flex h-full flex-col items-center justify-center">
+      <div className="relative z-[3] flex min-h-dvh flex-col items-center justify-center">
         <motion.div
           className="flex flex-col items-center text-center"
           style={{ y: textY }}
