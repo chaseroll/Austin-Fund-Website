@@ -23,7 +23,8 @@ html {
 }
 
 .hero-full-test {
-  min-height: 100lvh;
+  min-height: 100vh;
+  min-height: var(--app-height, 100vh);
   display: flex;
   flex-direction: column;
 }
