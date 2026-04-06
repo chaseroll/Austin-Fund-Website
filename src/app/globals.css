@@ -17,10 +17,9 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-@supports (height: 100dvh) {
-  :root {
-    --vh: 1dvh;
-  }
+.hero-full {
+  height: 100vh;
+  height: 100svh;
 }
 
 body {
