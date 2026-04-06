@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import PretextCapitolLetters from "../effects/PretextCapitolLetters";
 
 export default function TestHero() {
@@ -10,16 +10,6 @@ export default function TestHero() {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-
-  useEffect(() => {
-    function setHeight() {
-      const vh = window.visualViewport?.height ?? window.innerHeight;
-      document.documentElement.style.setProperty("--app-height", `${vh}px`);
-    }
-    setHeight();
-    window.visualViewport?.addEventListener("resize", setHeight);
-    return () => window.visualViewport?.removeEventListener("resize", setHeight);
-  }, []);
 
   const illustrationY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, 40]);

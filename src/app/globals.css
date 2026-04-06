@@ -17,14 +17,11 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-.hero-full {
-  height: 100vh;
-  height: 100svh;
-}
-
 .hero-full-test {
   min-height: 100vh;
-  min-height: var(--app-height, 100vh);
+  min-height: 100dvh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
   display: flex;
   flex-direction: column;
 }

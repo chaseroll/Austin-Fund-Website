@@ -82,7 +82,7 @@ export default function Navigation() {
           scrolled ? "opacity-100" : "opacity-0"
         } ${isDark ? "bg-[#EAEAEA]/[0.06]" : "bg-[#0D0E0A]/[0.06]"}`} />
 
-        <div className="relative mx-auto flex items-center justify-between px-6 py-5 md:px-16 md:py-6 lg:px-24">
+        <div className="relative mx-auto flex items-center justify-between px-6 py-5 pt-[max(1.25rem,env(safe-area-inset-top))] md:px-16 md:py-6 md:pt-[max(1.5rem,env(safe-area-inset-top))] lg:px-24">
           <a
             href="/"
             className="group text-[11px] font-medium tracking-[0.2em] uppercase transition-opacity duration-300 hover:opacity-70"
