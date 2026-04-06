@@ -47,7 +47,7 @@ export default function TestHero() {
         </div>
       </motion.div>
 
-      <div className="relative z-[3] flex h-full flex-col items-center justify-center">
+      <div className="hero-content-test relative z-[3]">
         <motion.div
           className="flex flex-col items-center text-center"
           style={{ y: textY }}

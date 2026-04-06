@@ -26,6 +26,16 @@ html {
   min-height: 100vh;
   min-height: -webkit-fill-available;
   min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-full-test > .hero-content-test {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 body {
