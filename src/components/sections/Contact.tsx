@@ -20,16 +20,31 @@ export default function Contact() {
               <span className="text-[11px] font-medium tracking-[0.2em] uppercase text-[#EAEAEA]">
                 Austin Fund
               </span>
-              <p className="max-w-sm text-[13px] font-light leading-relaxed text-[#EAEAEA]/75">
-                Pre-seed and seed venture capital for founders
-                at the University of Austin.
+              <p className="max-w-sm text-[13px] font-light leading-relaxed text-[#EAEAEA]/60">
+                Pre-seed and seed stage venture capital backing
+                university-affiliated founders.
               </p>
               <a
                 href="mailto:info@uaustin.fund"
-                className="group relative mt-1 text-[13px] font-light text-[#EAEAEA]/70 transition-colors duration-500 hover:text-[#EAEAEA]"
+                className="group mt-1 inline-flex w-fit items-center gap-2 text-[13px] font-light text-[#EAEAEA]/70 transition-colors duration-500 hover:text-[#EAEAEA]"
               >
-                info@uaustin.fund
-                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[#EAEAEA]/50 transition-all duration-500 group-hover:w-full" />
+                <span className="relative">
+                  info@uaustin.fund
+                  <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[#EAEAEA]/50 transition-all duration-500 group-hover:w-full" />
+                </span>
+                <svg
+                  className="h-3 w-3 opacity-0 transition-all duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-80"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                  />
+                </svg>
               </a>
             </div>
           </motion.div>

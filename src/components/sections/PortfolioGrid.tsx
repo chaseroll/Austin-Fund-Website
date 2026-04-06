@@ -24,7 +24,7 @@ export default function PortfolioGrid() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="h-px w-6 origin-center bg-[#EAEAEA]/10"
           />
-          <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-[#EAEAEA]/50">
+          <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-[#EAEAEA]/30">
             Investments
           </span>
           <motion.div
@@ -46,7 +46,7 @@ export default function PortfolioGrid() {
           <p className="text-lg font-light tracking-tight text-[#EAEAEA]/70 md:text-xl">
             Companies announcing soon.
           </p>
-          <p className="mt-3 max-w-md text-sm font-light leading-[1.8] tracking-wide text-[#EAEAEA]/55">
+          <p className="mt-3 max-w-md text-sm font-light leading-[1.8] tracking-wide text-[#EAEAEA]/30">
             We&apos;re finalizing public portfolio announcements and will share
             them here shortly.
           </p>

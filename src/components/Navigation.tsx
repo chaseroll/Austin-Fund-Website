@@ -54,8 +54,8 @@ export default function Navigation() {
       active
         ? isDark ? "text-[#EAEAEA]" : "text-[#0D0E0A]"
         : isDark
-          ? "text-[#EAEAEA]/60 hover:text-[#EAEAEA]"
-          : "text-[#0D0E0A]/60 hover:text-[#0D0E0A]"
+          ? "text-[#EAEAEA]/40 hover:text-[#EAEAEA]"
+          : "text-[#0D0E0A]/40 hover:text-[#0D0E0A]"
     }`;
 
   return (
@@ -82,7 +82,7 @@ export default function Navigation() {
           scrolled ? "opacity-100" : "opacity-0"
         } ${isDark ? "bg-[#EAEAEA]/[0.06]" : "bg-[#0D0E0A]/[0.06]"}`} />
 
-        <div className="relative mx-auto flex items-center justify-between px-6 py-5 pt-[max(1.25rem,env(safe-area-inset-top))] md:px-16 md:py-6 md:pt-[max(1.5rem,env(safe-area-inset-top))] lg:px-24">
+        <div className="relative mx-auto flex items-center justify-between px-6 py-5 md:px-16 md:py-6 lg:px-24">
           <a
             href="/"
             className="group text-[11px] font-medium tracking-[0.2em] uppercase transition-opacity duration-300 hover:opacity-70"
@@ -184,7 +184,7 @@ export default function Navigation() {
                 transition={{ delay: 0.4 }}
                 className="mt-16 border-t border-[#EAEAEA]/10 pt-6"
               >
-                <p className="text-xs font-light tracking-wider text-[#EAEAEA]/60">
+                <p className="text-xs font-light tracking-wider text-[#EAEAEA]/30">
                   info@uaustin.fund
                 </p>
               </motion.div>

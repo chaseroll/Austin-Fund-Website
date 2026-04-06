@@ -18,7 +18,7 @@ export default function PortfolioHero() {
   return (
     <section
       ref={sectionRef}
-      className="hero-full relative overflow-hidden bg-[#0A0A0A] text-[#EAEAEA]"
+      className="relative overflow-hidden bg-[#0A0A0A] text-[#EAEAEA]"
     >
       <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
         <div
@@ -47,7 +47,7 @@ export default function PortfolioHero() {
         </div>
       </motion.div>
 
-      <div className="relative z-[3] flex h-full flex-col items-center justify-center">
+      <div className="relative z-[3] flex min-h-screen flex-col items-center justify-center">
         <motion.div
           style={{ y: textY }}
           className="flex flex-col items-center text-center"
@@ -80,7 +80,8 @@ export default function PortfolioHero() {
             transition={{ duration: 1, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
             className="mx-auto mt-8 max-w-sm px-6 text-[13px] font-light leading-[1.8] tracking-wide text-[#A2A2A2]"
           >
-            Companies we&apos;ve invested in.
+            The founders and companies we&apos;re proud to back at the earliest
+            stages.
           </motion.p>
         </motion.div>
       </div>

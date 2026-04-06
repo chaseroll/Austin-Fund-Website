@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const ov = { once: true, margin: "-80px" as const };
 
 const headline =
-  "Backing the next generation of founders.";
+  "Backing the next generation of founders at the University of Austin.";
 
 export default function Mission() {
   return (
@@ -26,7 +26,7 @@ export default function Mission() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="h-px w-6 origin-center bg-[#3A3A3A]/25"
             />
-            <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-[#3A3A3A]/60">
+            <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-[#3A3A3A]/40">
               About
             </span>
             <motion.div
@@ -53,10 +53,10 @@ export default function Mission() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={ov}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="mx-auto mt-8 max-w-md text-[14px] font-light leading-[1.8] text-[#0D0E0A]/70"
+            className="mx-auto mt-8 max-w-md text-[14px] font-light leading-[1.8] text-[#0D0E0A]/45"
           >
-            A university-owned venture fund investing $200K checks via
-            post-money SAFEs at pre-seed and seed.
+            We partner with technical founders building category-defining
+            companies before consensus forms.
           </motion.p>
         </div>
       </div>

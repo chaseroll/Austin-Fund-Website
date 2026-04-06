@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     template: "%s | Austin Fund",
   },
   description:
-    "Pre-seed and seed venture capital for founders at the University of Austin.",
+    "Pre-seed and seed stage venture capital backing university-affiliated founders.",
   keywords: [
     "venture capital",
     "University of Austin",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Austin Fund",
     description:
-      "Pre-seed and seed venture capital for founders at the University of Austin.",
+      "Pre-seed and seed stage venture capital backing university-affiliated founders.",
     type: "website",
     locale: "en_US",
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Austin Fund",
     description:
-      "Pre-seed and seed venture capital for founders at the University of Austin.",
+      "Pre-seed and seed stage venture capital backing university-affiliated founders.",
   },
   robots: {
     index: true,
@@ -39,8 +39,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  viewportFit: "cover",
-  themeColor: "#0A0A0A",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
