@@ -5,7 +5,7 @@ import { memo } from "react";
 const GrainOverlay = memo(function GrainOverlay() {
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-[100] opacity-[0.025]"
+      className="pointer-events-none fixed inset-0 z-[100] opacity-[0.018]"
       aria-hidden="true"
     >
       <svg width="100%" height="100%" className="will-change-auto">

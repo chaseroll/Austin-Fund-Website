@@ -10,12 +10,8 @@ export default function Navigation() {
   const [isDark, setIsDark] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
   const onScroll = useCallback(() => {
     const scrollY = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    setScrollProgress(docHeight > 0 ? scrollY / docHeight : 0);
     setScrolled(scrollY > 20);
 
     if (isPortfolio) {
@@ -56,9 +52,9 @@ export default function Navigation() {
   const linkClass = (active: boolean) =>
     `${linkBase} ${
       active
-        ? isDark ? "text-[#EAEAE9]" : "text-[#0D0E0A]"
+        ? isDark ? "text-[#EAEAEA]" : "text-[#0D0E0A]"
         : isDark
-          ? "text-[#EAEAE9]/40 hover:text-[#EAEAE9]"
+          ? "text-[#EAEAEA]/40 hover:text-[#EAEAEA]"
           : "text-[#0D0E0A]/40 hover:text-[#0D0E0A]"
     }`;
 
@@ -69,14 +65,14 @@ export default function Navigation() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isDark ? "text-[#EAEAE9]" : "text-[#0D0E0A]"
+          isDark ? "text-[#EAEAEA]" : "text-[#0D0E0A]"
         }`}
       >
         <div
           className={`absolute inset-0 transition-all duration-700 ${
             scrolled
               ? isDark
-                ? "bg-[#0D0E0A]/[0.02] backdrop-blur-[3px] backdrop-saturate-[1.2]"
+                ? "bg-[#000000]/[0.04] backdrop-blur-[3px] backdrop-saturate-[1.1]"
                 : "bg-[#f5f4f0]/[0.02] backdrop-blur-[3px] backdrop-saturate-[1.2]"
               : ""
           }`}
@@ -84,9 +80,9 @@ export default function Navigation() {
 
         <div className={`absolute bottom-0 left-0 right-0 h-px transition-opacity duration-500 ${
           scrolled ? "opacity-100" : "opacity-0"
-        } ${isDark ? "bg-[#EAEAE9]/[0.06]" : "bg-[#0D0E0A]/[0.06]"}`} />
+        } ${isDark ? "bg-[#EAEAEA]/[0.06]" : "bg-[#0D0E0A]/[0.06]"}`} />
 
-        <div className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-16 md:py-6 lg:px-24">
+        <div className="relative mx-auto flex items-center justify-between px-6 py-5 md:px-16 md:py-6 lg:px-24">
           <a
             href="/"
             className="group text-[11px] font-medium tracking-[0.2em] uppercase transition-opacity duration-300 hover:opacity-70"
@@ -101,14 +97,14 @@ export default function Navigation() {
                 <motion.div
                   layoutId="nav-indicator"
                   className={`absolute -bottom-1 left-0 right-0 h-px ${
-                    isDark ? "bg-[#EAEAE9]/40" : "bg-[#0D0E0A]/40"
+                    isDark ? "bg-[#EAEAEA]/40" : "bg-[#0D0E0A]/40"
                   }`}
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
             </a>
             <a
-              href="mailto:innovation.fund@uaustin.org"
+              href="mailto:info@uaustin.fund"
               className={linkClass(false)}
             >
               Contact
@@ -124,31 +120,26 @@ export default function Navigation() {
               animate={mobileOpen ? { rotate: 45, y: 4.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.3 }}
               className={`block h-px w-5 origin-center transition-colors duration-500 ${
-                mobileOpen ? "bg-[#EAEAE9]" : isDark ? "bg-[#EAEAE9]" : "bg-[#0D0E0A]"
+                mobileOpen ? "bg-[#EAEAEA]" : isDark ? "bg-[#EAEAEA]" : "bg-[#0D0E0A]"
               }`}
             />
             <motion.span
               animate={mobileOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
               transition={{ duration: 0.2 }}
               className={`block h-px w-5 origin-center transition-colors duration-500 ${
-                isDark ? "bg-[#EAEAE9]" : "bg-[#0D0E0A]"
+                isDark ? "bg-[#EAEAEA]" : "bg-[#0D0E0A]"
               }`}
             />
             <motion.span
               animate={mobileOpen ? { rotate: -45, y: -4.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.3 }}
               className={`block h-px w-5 origin-center transition-colors duration-500 ${
-                mobileOpen ? "bg-[#EAEAE9]" : isDark ? "bg-[#EAEAE9]" : "bg-[#0D0E0A]"
+                mobileOpen ? "bg-[#EAEAEA]" : isDark ? "bg-[#EAEAEA]" : "bg-[#0D0E0A]"
               }`}
             />
           </button>
         </div>
 
-        <motion.div
-          className="absolute bottom-0 left-0 h-px origin-left bg-[#2C2E20]"
-          style={{ scaleX: scrollProgress, width: "100%" }}
-          transition={{ ease: "linear", duration: 0 }}
-        />
       </motion.nav>
 
       <AnimatePresence>
@@ -158,13 +149,13 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-40 bg-[#0D0E0A]"
+            className="fixed inset-0 z-40 bg-[#000000]"
           >
             <div className="flex h-full flex-col items-start justify-center px-8">
               {[
                 { label: "Home", href: "/", delay: 0.1 },
                 { label: "Portfolio", href: "/portfolio", delay: 0.15 },
-                { label: "Contact", href: "mailto:innovation.fund@uaustin.org", delay: 0.2 },
+                { label: "Contact", href: "mailto:info@uaustin.fund", delay: 0.2 },
               ].map((item) => (
                 <motion.a
                   key={item.label}
@@ -178,11 +169,11 @@ export default function Navigation() {
                     delay: item.delay,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="group py-4 text-4xl font-light tracking-tight text-[#EAEAE9] transition-opacity hover:opacity-60"
+                  className="group py-4 text-4xl font-light tracking-tight text-[#EAEAEA] transition-opacity hover:opacity-60"
                 >
                   {item.label}
                   {pathname === item.href && (
-                    <span className="ml-3 inline-block h-1.5 w-1.5 rounded-full bg-[#2C2E20]" />
+                    <span className="ml-3 inline-block h-1.5 w-1.5 rounded-full bg-[#4A4A4A]" />
                   )}
                 </motion.a>
               ))}
@@ -191,10 +182,10 @@ export default function Navigation() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="mt-16 border-t border-[#EAEAE9]/10 pt-6"
+                className="mt-16 border-t border-[#EAEAEA]/10 pt-6"
               >
-                <p className="text-xs font-light tracking-wider text-[#EAEAE9]/30">
-                  innovation.fund@uaustin.org
+                <p className="text-xs font-light tracking-wider text-[#EAEAEA]/30">
+                  info@uaustin.fund
                 </p>
               </motion.div>
             </div>

@@ -1,233 +1,88 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useMotionTemplate } from "framer-motion";
+import { motion } from "framer-motion";
 
 const ov = { once: true, margin: "-80px" as const };
 
-interface Company {
-  name: string;
-  description: string;
-  sector: string;
-  url?: string;
-}
-
-const companies: Company[] = [
-  {
-    name: "Company A",
-    description: "Decentralized compute infrastructure",
-    sector: "Infrastructure",
-  },
-  {
-    name: "Company B",
-    description: "AI-powered research collaboration",
-    sector: "AI / ML",
-  },
-  {
-    name: "Company C",
-    description: "Emerging market supply chain logistics",
-    sector: "Logistics",
-  },
-  {
-    name: "Company D",
-    description: "Edge application developer tools",
-    sector: "Developer Tools",
-  },
-  {
-    name: "Company E",
-    description: "Industrial carbon capture at scale",
-    sector: "Climate Tech",
-  },
-  {
-    name: "Company F",
-    description: "Cross-border payments for SMBs",
-    sector: "Fintech",
-  },
-  {
-    name: "Company G",
-    description: "AI-driven drug discovery therapeutics",
-    sector: "Biotech",
-  },
-  {
-    name: "Company H",
-    description: "Behavioral science consumer health",
-    sector: "Health Tech",
-  },
-];
+const placeholders = Array.from({ length: 6 }, (_, i) => i);
 
 export default function PortfolioGrid() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const numberY = useTransform(scrollYProgress, [0, 1], [80, -80]);
-
   return (
-    <section ref={sectionRef} className="relative pb-24 pt-24 md:pb-36 md:pt-40">
-      <motion.span
-        style={{ y: numberY }}
-        className="pointer-events-none absolute right-6 top-16 select-none text-[10rem] font-extralight leading-none text-[#EAEAE9]/[0.02] md:right-16 md:text-[18rem]"
-      >
-        01
-      </motion.span>
-
-      <div className="relative mx-auto max-w-7xl px-6 md:px-16 lg:px-24">
+    <section className="relative bg-[#0A0A0A] pb-24 pt-8 md:pb-32 md:pt-12">
+      <div className="relative mx-auto max-w-5xl px-6 md:px-16 lg:px-24">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={ov}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-12 flex items-center justify-between pt-12 md:mb-16 md:pt-16"
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mb-10 flex items-center justify-center gap-4"
         >
-          <div className="flex items-center gap-4">
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={ov}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="h-px w-8 origin-left bg-[#2C2E20]"
-            />
-            <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-[#6B6D63]/60">
-              Investments
-            </span>
-          </div>
-          <span className="text-[10px] font-light tracking-wider text-[#EAEAE9]/20">
-            {String(companies.length).padStart(2, "0")} Companies
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={ov}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="h-px w-6 origin-center bg-[#EAEAEA]/10"
+          />
+          <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-[#EAEAEA]/30">
+            Investments
           </span>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={ov}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="h-px w-6 origin-center bg-[#EAEAEA]/10"
+          />
         </motion.div>
 
         <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={ov}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="h-px w-full origin-left bg-[#EAEAE9]/[0.08]"
-        />
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-10 flex flex-col items-center justify-center text-center"
+        >
+          <p className="text-lg font-light tracking-tight text-[#EAEAEA]/70 md:text-xl">
+            Companies announcing soon.
+          </p>
+          <p className="mt-3 max-w-md text-sm font-light leading-[1.8] tracking-wide text-[#EAEAEA]/30">
+            We&apos;re finalizing public portfolio announcements and will share
+            them here shortly.
+          </p>
+        </motion.div>
 
-        <div>
-          {companies.map((company, i) => (
-            <CompanyItem key={company.name} company={company} index={i} />
+        <div className="space-y-0">
+          {placeholders.map((i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{
+                duration: 0.5,
+                delay: 0.05 + i * 0.04,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="border-b border-[#EAEAEA]/[0.06] py-7 md:py-8"
+            >
+              <div className="flex items-center gap-6 md:gap-10">
+                <span className="text-[11px] font-light tabular-nums tracking-wider text-[#EAEAEA]/15">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="flex flex-1 flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                  <div className="flex flex-col gap-1.5">
+                    <div className="h-[1.125rem] w-36 rounded bg-[#EAEAEA]/[0.04] md:w-48" />
+                    <div className="h-3 w-48 rounded bg-[#EAEAEA]/[0.025] md:w-64" />
+                  </div>
+                  <div className="h-5 w-16 rounded-full bg-[#EAEAEA]/[0.03] md:w-20" />
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
+
       </div>
     </section>
-  );
-}
-
-function CompanyItem({ company, index }: { company: Company; index: number }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const itemRef = useRef<HTMLDivElement>(null);
-  const num = String(index + 1).padStart(2, "0");
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!itemRef.current) return;
-    const rect = itemRef.current.getBoundingClientRect();
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
-  };
-
-  const background = useMotionTemplate`radial-gradient(400px circle at ${mouseX}px ${mouseY}px, rgba(234,234,233,0.04), transparent 40%)`;
-
-  const content = (
-    <div
-      ref={itemRef}
-      className="relative flex items-center justify-between gap-6 overflow-hidden py-7 px-4 -mx-4 rounded-xl transition-colors duration-500 md:py-9 md:px-6 md:-mx-6 cursor-pointer"
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <motion.div
-        className="pointer-events-none absolute inset-0 transition-opacity duration-500"
-        style={{
-          opacity: isHovered ? 1 : 0,
-          background,
-        }}
-      />
-
-      <div className="relative flex items-center gap-6 md:gap-10">
-        <motion.span
-          animate={{ opacity: isHovered ? 0.8 : 0.3 }}
-          className="text-[11px] font-light tabular-nums tracking-wider text-[#6B6D63]"
-        >
-          {num}
-        </motion.span>
-
-        <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-6">
-          <motion.h3
-            animate={{ x: isHovered ? 4 : 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="text-lg font-light tracking-tight text-[#EAEAE9] md:text-2xl lg:text-[1.75rem]"
-          >
-            {company.name}
-          </motion.h3>
-          <span className="text-[12px] font-light text-[#6B6D63]/60 md:hidden">
-            {company.sector}
-          </span>
-        </div>
-      </div>
-
-      <div className="relative hidden items-center gap-8 md:flex lg:gap-12">
-        <motion.span
-          animate={{ opacity: isHovered ? 0.7 : 0.4 }}
-          className="text-[13px] font-light text-[#6B6D63]"
-        >
-          {company.description}
-        </motion.span>
-        <span className="shrink-0 rounded-full border border-[#2C2E20]/20 px-3 py-1 text-[9px] font-medium tracking-[0.15em] uppercase text-[#6B6D63]/50">
-          {company.sector}
-        </span>
-        {company.url && (
-          <motion.svg
-            animate={{
-              x: isHovered ? 2 : 0,
-              y: isHovered ? -2 : 0,
-              opacity: isHovered ? 0.7 : 0.2,
-            }}
-            transition={{ duration: 0.3 }}
-            className="h-3.5 w-3.5 shrink-0 text-[#EAEAE9]"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={1.5}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-            />
-          </motion.svg>
-        )}
-      </div>
-    </div>
-  );
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{
-        duration: 0.6,
-        delay: 0.05 + index * 0.04,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className="group border-b border-[#EAEAE9]/[0.06]"
-    >
-      {company.url ? (
-        <a
-          href={company.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block"
-        >
-          {content}
-        </a>
-      ) : (
-        content
-      )}
-    </motion.div>
   );
 }
