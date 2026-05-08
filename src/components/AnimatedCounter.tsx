@@ -1,7 +1,36 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useInView } from "framer-motion";
+
+type Parsed =
+  | { kind: "static"; value: string }
+  | {
+      kind: "numeric";
+      target: number;
+      prefix: string;
+      suffix: string;
+      isFloat: boolean;
+    };
+
+function parseValue(value: string): Parsed {
+  const match = value.match(/[\d.]+/);
+  if (!match) return { kind: "static", value };
+  const numText = match[0];
+  return {
+    kind: "numeric",
+    target: parseFloat(numText),
+    prefix: value.slice(0, value.indexOf(numText)),
+    suffix: value.slice(value.indexOf(numText) + numText.length),
+    isFloat: numText.includes("."),
+  };
+}
+
+function formatInitial(parsed: Parsed): string {
+  if (parsed.kind === "static") return parsed.value;
+  const zero = parsed.isFloat ? "0.0" : "0";
+  return `${parsed.prefix}${zero}${parsed.suffix}`;
+}
 
 export default function AnimatedCounter({
   value,
@@ -12,25 +41,21 @@ export default function AnimatedCounter({
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [display, setDisplay] = useState(value);
+  const parsed = useMemo(() => parseValue(value), [value]);
+  const [display, setDisplay] = useState(() => formatInitial(parsed));
 
   useEffect(() => {
     if (!isInView) return;
 
-    const numMatch = value.match(/[\d.]+/);
-    if (!numMatch) {
-      setDisplay(value);
-      return;
+    if (parsed.kind === "static") {
+      const id = requestAnimationFrame(() => setDisplay(parsed.value));
+      return () => cancelAnimationFrame(id);
     }
 
-    const target = parseFloat(numMatch[0]);
-    const prefix = value.slice(0, value.indexOf(numMatch[0]));
-    const suffix = value.slice(
-      value.indexOf(numMatch[0]) + numMatch[0].length
-    );
-    const isFloat = numMatch[0].includes(".");
+    const { target, prefix, suffix, isFloat } = parsed;
     const duration = 1200;
     const startTime = performance.now();
+    let frame = 0;
 
     const animate = (currentTime: number) => {
       const elapsed = currentTime - startTime;
@@ -38,21 +63,21 @@ export default function AnimatedCounter({
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = target * eased;
 
-      if (isFloat) {
-        setDisplay(`${prefix}${current.toFixed(1)}${suffix}`);
-      } else {
-        setDisplay(`${prefix}${Math.round(current)}${suffix}`);
-      }
+      const formatted = isFloat
+        ? `${prefix}${current.toFixed(1)}${suffix}`
+        : `${prefix}${Math.round(current)}${suffix}`;
+      setDisplay(progress < 1 ? formatted : value);
 
       if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setDisplay(value);
+        frame = requestAnimationFrame(animate);
       }
     };
 
-    requestAnimationFrame(animate);
-  }, [isInView, value]);
+    frame = requestAnimationFrame(animate);
+    return () => {
+      if (frame !== 0) cancelAnimationFrame(frame);
+    };
+  }, [isInView, parsed, value]);
 
   return (
     <span ref={ref} className={className}>

@@ -31,13 +31,15 @@ const FORM_DURATION_MS = 720;
 const MAX_GLYPHS_DESKTOP = 3000;
 const MAX_GLYPHS_MOBILE = 1700;
 
-const GLOW_RADIUS = 180;
+const GLOW_RADIUS = 200;
 const GLOW_RADIUS_SQ = GLOW_RADIUS * GLOW_RADIUS;
-const GLOW_PEAK = 0.65;
+const GLOW_PEAK = 0.6;
 const LERP_IN = 0.18;
 const LERP_OUT = 0.045;
-const BASE_GLYPH_COLOR = "#8F8F8F";
-const GLOW_GLYPH_COLOR = "#D0D0D0";
+const BASE_GLYPH_COLOR = "#B8B8B8";
+const GLOW_GLYPH_COLOR = "#F0F0F0";
+const BASE_ALPHA_SOLID = 0.42;
+const BASE_ALPHA_GRID = 0.12;
 
 const MICRO_COPY = [
   "Austin Fund backs university-affiliated founders at the earliest stages. ",
@@ -133,14 +135,14 @@ function buildBlueprint(step: number): BlueprintPoint[] {
   const points: BlueprintPoint[] = [];
   const stageCounts: number[] = [];
 
-  // Dome ornament (kept unchanged)
+  // Dome ornament
   pushLine(points, stageCounts, 250, 60, 250, 80, step, 0);
   pushQuadratic(points, stageCounts, 254, 56, 253, 59, 250, 60, step, 0);
   pushQuadratic(points, stageCounts, 250, 60, 247, 59, 246, 56, step, 0);
   pushQuadratic(points, stageCounts, 246, 56, 247, 53, 250, 52, step, 0);
   pushQuadratic(points, stageCounts, 250, 52, 253, 53, 254, 56, step, 0);
 
-  // Dome outer / inner (kept unchanged)
+  // Dome outer / inner
   pushQuadratic(points, stageCounts, 200, 180, 200, 100, 250, 80, step, 1);
   pushQuadratic(points, stageCounts, 250, 80, 300, 100, 300, 180, step, 1);
   pushQuadratic(points, stageCounts, 210, 180, 210, 115, 250, 95, step, 2);
@@ -176,27 +178,25 @@ function buildBlueprint(step: number): BlueprintPoint[] {
     pushRect(points, stageCounts, 126 - i * 16, 384 + i * 8, 248 + i * 32, 6, step, 8);
   }
 
-  // Left wing (extra wide)
+  // Left wing
   pushRect(points, stageCounts, 6, 300, 198, 70, step, 7);
   pushRect(points, stageCounts, 0, 296, 210, 4, step, 7);
   for (let i = 0; i < 10; i++) {
     const x = 18 + i * 20;
     pushLine(points, stageCounts, x, 304, x, 368, step, 7);
   }
-  // Left outer pavilion roof (slightly pointed)
   pushQuadratic(points, stageCounts, 16, 300, 34, 276, 52, 300, step, 6);
   pushQuadratic(points, stageCounts, 16, 298, 34, 282, 52, 298, step, 6);
   pushLine(points, stageCounts, 10, 300, 58, 300, step, 6);
   pushLine(points, stageCounts, 34, 276, 34, 268, step, 6);
 
-  // Right wing (extra wide)
+  // Right wing
   pushRect(points, stageCounts, 296, 300, 198, 70, step, 7);
   pushRect(points, stageCounts, 290, 296, 210, 4, step, 7);
   for (let i = 0; i < 10; i++) {
     const x = 308 + i * 20;
     pushLine(points, stageCounts, x, 304, x, 368, step, 7);
   }
-  // Right outer pavilion roof (slightly pointed)
   pushQuadratic(points, stageCounts, 448, 300, 466, 276, 484, 300, step, 6);
   pushQuadratic(points, stageCounts, 448, 298, 466, 282, 484, 298, step, 6);
   pushLine(points, stageCounts, 442, 300, 490, 300, step, 6);
@@ -209,7 +209,9 @@ function buildBlueprint(step: number): BlueprintPoint[] {
   return points;
 }
 
-export default function PretextCapitolLetters({ className }: PretextCapitolLettersProps) {
+export default function PretextCapitolLetters({
+  className,
+}: PretextCapitolLettersProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -328,12 +330,17 @@ export default function PretextCapitolLetters({ className }: PretextCapitolLette
       hasGlow = false;
     };
 
+    // Bottom fade starts earlier (0.55) so the lower-mid area where the
+    // subtitle and CTA sit naturally calms down without needing an explicit
+    // punch-out. The capitol's columns and base still register, just softer.
     const verticalFade = (y: number): number => {
       const fadeStart = height * 0.55;
-      const fadeEnd = height * 0.85;
+      const fadeEnd = height * 0.92;
       if (y <= fadeStart) return 1;
       if (y >= fadeEnd) return 0;
-      return 1 - (y - fadeStart) / (fadeEnd - fadeStart);
+      const t = (y - fadeStart) / (fadeEnd - fadeStart);
+      // Smoothstep eases the falloff so the transition reads as light, not abrupt.
+      return 1 - t * t * (3 - 2 * t);
     };
 
     const drawWithGlow = (): boolean => {
@@ -365,7 +372,7 @@ export default function PretextCapitolLetters({ className }: PretextCapitolLette
           anyGlowing = true;
         }
 
-        const baseAlpha = glyph.isGrid ? 0.06 : 0.24;
+        const baseAlpha = glyph.isGrid ? BASE_ALPHA_GRID : BASE_ALPHA_SOLID;
         const alpha = (baseAlpha + glyph.glow) * fade;
 
         context.globalAlpha = alpha;
@@ -377,7 +384,7 @@ export default function PretextCapitolLetters({ className }: PretextCapitolLette
       return anyGlowing || mouseX > -999;
     };
 
-    const glowLoop = (_time: number) => {
+    const glowLoop = () => {
       frame = 0;
       const keepGoing = drawWithGlow();
       if (keepGoing && !reduceMotion) {
@@ -396,7 +403,7 @@ export default function PretextCapitolLetters({ className }: PretextCapitolLette
         const glyph = glyphs[i]!;
         const fade = verticalFade(glyph.y);
         if (fade <= 0) continue;
-        context.globalAlpha = (glyph.isGrid ? 0.06 : 0.24) * fade;
+        context.globalAlpha = (glyph.isGrid ? BASE_ALPHA_GRID : BASE_ALPHA_SOLID) * fade;
         context.fillText(glyph.char, glyph.x, glyph.y);
       }
       context.globalAlpha = 1;
@@ -427,7 +434,7 @@ export default function PretextCapitolLetters({ className }: PretextCapitolLette
         const y = glyph.fromY + (glyph.y - glyph.fromY) * eased;
         const fade = verticalFade(y);
         if (fade <= 0) continue;
-        context.globalAlpha = (glyph.isGrid ? 0.07 : 0.26) * eased * fade;
+        context.globalAlpha = (glyph.isGrid ? BASE_ALPHA_GRID + 0.02 : BASE_ALPHA_SOLID + 0.04) * eased * fade;
         context.fillText(glyph.char, x, y);
       }
       context.globalAlpha = 1;
@@ -489,4 +496,3 @@ export default function PretextCapitolLetters({ className }: PretextCapitolLette
 
   return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
 }
-

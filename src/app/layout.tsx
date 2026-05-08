@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+const SITE_URL = "https://www.uaustin.fund";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fund.ilabs.uaustin.org"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Austin Fund",
     template: "%s | Austin Fund",
@@ -17,10 +19,15 @@ export const metadata: Metadata = {
     "startup fund",
     "UATX",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Austin Fund",
     description:
       "Pre-seed and seed venture capital for founders at the University of Austin.",
+    url: SITE_URL,
+    siteName: "Austin Fund",
     type: "website",
     locale: "en_US",
   },
@@ -55,6 +62,7 @@ export default function RootLayout({
           href="https://fonts.cdnfonts.com"
           crossOrigin="anonymous"
         />
+        <link rel="dns-prefetch" href="https://fonts.cdnfonts.com" />
         <link
           href="https://fonts.cdnfonts.com/css/general-sans"
           rel="stylesheet"

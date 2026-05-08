@@ -1,6 +1,6 @@
 # Austin Fund
 
-Website for The Austin Fund — pre-seed and seed stage venture capital backing University of Austin affiliated founders.
+Website for The Austin Fund. Pre-seed and seed stage venture capital backing University of Austin affiliated founders.
 
 ## Color Palette
 

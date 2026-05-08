@@ -32,13 +32,15 @@ const FORM_DURATION_MS = 760;
 const MAX_GLYPHS_DESKTOP = 3000;
 const MAX_GLYPHS_MOBILE = 1700;
 
-const GLOW_RADIUS = 180;
+const GLOW_RADIUS = 200;
 const GLOW_RADIUS_SQ = GLOW_RADIUS * GLOW_RADIUS;
-const GLOW_PEAK = 0.56;
+const GLOW_PEAK = 0.6;
 const LERP_IN = 0.18;
 const LERP_OUT = 0.045;
-const BASE_GLYPH_COLOR = "#8F8F8F";
-const GLOW_GLYPH_COLOR = "#D0D0D0";
+const BASE_GLYPH_COLOR = "#B8B8B8";
+const GLOW_GLYPH_COLOR = "#F0F0F0";
+const BASE_ALPHA_SOLID = 0.42;
+const BASE_ALPHA_GRID = 0.12;
 
 const MICRO_COPY = [
   "Austin Fund portfolio highlights ambitious teams building enduring products. ",
@@ -352,8 +354,8 @@ export default function PretextBridgeLetters({ className }: PretextBridgeLetters
     };
 
     const verticalFade = (y: number): number => {
-      const fadeStart = height * 0.6;
-      const fadeEnd = height * 0.9;
+      const fadeStart = height * 0.65;
+      const fadeEnd = height * 0.94;
       if (y <= fadeStart) return 1;
       if (y >= fadeEnd) return 0;
       return 1 - (y - fadeStart) / (fadeEnd - fadeStart);
@@ -389,7 +391,7 @@ export default function PretextBridgeLetters({ className }: PretextBridgeLetters
           anyGlowing = true;
         }
 
-        const baseAlpha = glyph.isGrid ? 0.06 : 0.24;
+        const baseAlpha = glyph.isGrid ? BASE_ALPHA_GRID : BASE_ALPHA_SOLID;
         const alpha = (baseAlpha + glyph.glow) * fade;
         context.globalAlpha = alpha;
         context.fillStyle = glyph.glow > 0.02 ? GLOW_GLYPH_COLOR : BASE_GLYPH_COLOR;
@@ -400,7 +402,7 @@ export default function PretextBridgeLetters({ className }: PretextBridgeLetters
       return anyGlowing || mouseX > -999;
     };
 
-    const glowLoop = (_time: number) => {
+    const glowLoop = () => {
       frame = 0;
       const keepGoing = drawWithGlow();
       if (keepGoing && !reduceMotion) {
@@ -419,7 +421,7 @@ export default function PretextBridgeLetters({ className }: PretextBridgeLetters
         const glyph = glyphs[i]!;
         const fade = verticalFade(glyph.y);
         if (fade <= 0) continue;
-        context.globalAlpha = (glyph.isGrid ? 0.06 : 0.24) * fade;
+        context.globalAlpha = (glyph.isGrid ? BASE_ALPHA_GRID : BASE_ALPHA_SOLID) * fade;
         context.fillText(glyph.char, glyph.x, glyph.y);
       }
       context.globalAlpha = 1;
@@ -450,7 +452,7 @@ export default function PretextBridgeLetters({ className }: PretextBridgeLetters
         const y = glyph.fromY + (glyph.y - glyph.fromY) * eased;
         const fade = verticalFade(y);
         if (fade <= 0) continue;
-        context.globalAlpha = (glyph.isGrid ? 0.07 : 0.26) * eased * fade;
+        context.globalAlpha = (glyph.isGrid ? BASE_ALPHA_GRID + 0.02 : BASE_ALPHA_SOLID + 0.04) * eased * fade;
         context.fillText(glyph.char, x, y);
       }
       context.globalAlpha = 1;
