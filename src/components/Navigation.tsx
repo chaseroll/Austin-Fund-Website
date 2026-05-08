@@ -114,7 +114,7 @@ export default function Navigation() {
               href="https://northstar.uaustin.fund"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Visit NorthStar"
+              aria-label="Visit NorthStar — the Austin Fund's non-dilutive grants program for founders at the University of Austin"
               className={`nav-link hidden md:inline-flex items-baseline transition-colors duration-[var(--dur-default)] ease-[var(--ease-standard)] ${
                 isDark
                   ? "text-[#EAEAEA]/65 hover:text-[#EAEAEA]"
@@ -228,7 +228,7 @@ export default function Navigation() {
                   href="https://northstar.uaustin.fund"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Visit NorthStar"
+                  aria-label="Visit NorthStar — the Austin Fund's non-dilutive grants program for founders at the University of Austin"
                   initial={{ opacity: 0, x: -24 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -16 }}
