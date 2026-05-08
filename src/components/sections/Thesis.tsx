@@ -112,21 +112,26 @@ export default function Thesis() {
                   }}
                   className="flex flex-col items-center text-center"
                 >
-                  {stat.countValue ? (
-                    <p
-                      className="font-display tabular-nums font-light leading-[1] tracking-[-0.025em] text-[#0D0E0A]"
-                      style={{ fontSize: "clamp(1.85rem, 3.6vw, 2.9rem)" }}
-                    >
-                      <AnimatedCounter value={stat.countValue} />
-                    </p>
-                  ) : (
-                    <p
-                      className="font-display font-light leading-[1] tracking-[-0.04em] text-[#0D0E0A]"
-                      style={{ fontSize: "clamp(1.5rem, 3.4vw, 2.7rem)" }}
-                    >
-                      {stat.display}
-                    </p>
-                  )}
+                  <div
+                    className="flex items-end justify-center"
+                    style={{ height: "clamp(1.85rem, 3.6vw, 2.9rem)" }}
+                  >
+                    {stat.countValue ? (
+                      <p
+                        className="font-display tabular-nums font-light leading-[1] tracking-[-0.025em] text-[#0D0E0A]"
+                        style={{ fontSize: "clamp(1.85rem, 3.6vw, 2.9rem)" }}
+                      >
+                        <AnimatedCounter value={stat.countValue} />
+                      </p>
+                    ) : (
+                      <p
+                        className="font-display font-light leading-[1] tracking-[-0.04em] text-[#0D0E0A]"
+                        style={{ fontSize: "clamp(1.5rem, 3.4vw, 2.7rem)" }}
+                      >
+                        {stat.display}
+                      </p>
+                    )}
+                  </div>
                   <p className="eyebrow mt-3 text-[var(--color-mute-light)]">
                     {stat.label}
                   </p>
