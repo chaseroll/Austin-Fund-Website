@@ -9,7 +9,7 @@ const placeholders = Array.from({ length: 6 }, (_, i) => i);
 
 export default function PortfolioGrid() {
   return (
-    <section className="relative bg-[#0A0A0A] pt-12 pb-[var(--section-y)] md:pt-16 md:pb-[var(--section-y-lg)]">
+    <section className="relative bg-[#000000] pt-12 pb-[var(--section-y)] md:pt-16 md:pb-[var(--section-y-lg)]">
       <div className="relative mx-auto max-w-5xl px-6 md:px-16 lg:px-24">
         <motion.div
           initial={{ opacity: 0, y: 14 }}

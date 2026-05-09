@@ -5,7 +5,7 @@ import Contact from "@/components/sections/Contact";
 
 export default function Portfolio() {
   return (
-    <main className="bg-[#0A0A0A]">
+    <main className="bg-[#000000]">
       <Navigation />
       <PortfolioHero />
       <PortfolioGrid />

@@ -19,20 +19,20 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-[#0A0A0A] text-[#EAEAEA]"
+      className="relative overflow-hidden bg-[#000000] text-[#EAEAEA]"
     >
       <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(1200px 760px at 14% 8%, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 60%), radial-gradient(900px 560px at 82% 18%, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 62%), #0A0A0A",
+              "radial-gradient(1200px 760px at 14% 8%, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 60%), radial-gradient(900px 560px at 82% 18%, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 62%), #000000",
           }}
         />
       </div>
 
       <motion.div
-        className="pointer-events-none absolute inset-0 z-[2] bg-[#0A0A0A]"
+        className="pointer-events-none absolute inset-0 z-[2] bg-[#000000]"
         style={{ opacity: overlayOpacity }}
       />
 
@@ -50,7 +50,7 @@ export default function Hero() {
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-32 bg-gradient-to-b from-transparent to-[#0A0A0A]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-32 bg-gradient-to-b from-transparent to-[#000000]"
       />
 
       {/* Soft spotlight scrim behind the headline + subtitle + CTA so type

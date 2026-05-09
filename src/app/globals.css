@@ -2,7 +2,7 @@
 
 @theme inline {
   /* ─── Surfaces ──────────────────────────────────────────── */
-  --color-background: #0A0A0A;
+  --color-background: #000000;
   --color-foreground: #EAEAEA;
   --color-foreground-light: #0D0E0A;
   --color-surface-light: #F5F4F0;
@@ -218,7 +218,7 @@ em.display-em,
   .glass-dark {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    background-color: rgba(10, 10, 10, 0.96);
+    background-color: rgba(0, 0, 0, 0.96);
   }
   .glass-light {
     backdrop-filter: none;

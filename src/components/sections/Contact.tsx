@@ -2,7 +2,7 @@ export default function Contact() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#0A0A0A] text-[#EAEAEA]">
+    <footer className="relative bg-[#000000] text-[#EAEAEA]">
       <div className="mx-auto max-w-5xl px-6 md:px-16 lg:px-24">
         <div className="border-t border-[var(--color-hair-dark)] pt-10 pb-10 md:pt-12 md:pb-12">
           <div className="flex flex-col items-center justify-between gap-3 md:flex-row">

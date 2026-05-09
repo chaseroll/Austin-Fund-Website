@@ -38,7 +38,7 @@ export async function GET(req: Request) {
       ? rawRatio
       : 4;
 
-  const bg = variant === "light" ? "#F5F4F0" : "#0A0A0A";
+  const bg = variant === "light" ? "#F5F4F0" : "#000000";
   const fg = variant === "light" ? "#0D0E0A" : "#EAEAEA";
 
   if (kind === "banner") {

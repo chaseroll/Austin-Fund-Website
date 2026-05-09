@@ -83,7 +83,7 @@ export default function Navigation() {
           className={`pointer-events-none absolute inset-0 transition-all duration-700 ${
             scrolled
               ? isDark
-                ? "bg-[#0A0A0A]/[0.04] backdrop-blur-[3px] backdrop-saturate-[1.1]"
+                ? "bg-[#000000]/[0.04] backdrop-blur-[3px] backdrop-saturate-[1.1]"
                 : "bg-[#F5F4F0]/[0.35] backdrop-blur-[3px] backdrop-saturate-[1.2]"
               : ""
           }`}
@@ -206,7 +206,7 @@ export default function Navigation() {
           >
             <div
               aria-hidden
-              className="absolute inset-0 bg-[#0A0A0A]/85"
+              className="absolute inset-0 bg-[#000000]/85"
               style={{
                 backdropFilter: "blur(36px) saturate(1.6)",
                 WebkitBackdropFilter: "blur(36px) saturate(1.6)",
