@@ -1,5 +1,4 @@
 import Navigation from "@/components/Navigation";
-import AmbientGlow from "@/components/AmbientGlow";
 import Hero from "@/components/sections/Hero";
 import Mission from "@/components/sections/Mission";
 import Thesis from "@/components/sections/Thesis";
@@ -10,18 +9,9 @@ export default function Home() {
     <main className="bg-[#000000]">
       <Navigation />
       <Hero />
-      <div data-theme="light" className="relative overflow-hidden bg-[#F5F4F0]">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#000000]/[0.03] to-transparent"
-        />
-        <AmbientGlow />
+      <div className="relative overflow-hidden bg-[#000000]">
         <Mission />
         <Thesis />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-[#000000]/[0.04]"
-        />
       </div>
       <Contact />
     </main>

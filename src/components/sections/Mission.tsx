@@ -7,7 +7,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function Mission() {
   return (
-    <section className="relative overflow-hidden pt-[var(--section-y)] pb-[var(--section-y)] text-[#0D0E0A] md:pt-[var(--section-y-lg)] md:pb-[var(--section-y-lg)]">
+    <section className="relative overflow-hidden pt-[var(--section-y)] pb-[var(--section-y)] text-[#EAEAEA] md:pt-[var(--section-y-lg)] md:pb-[var(--section-y-lg)]">
       <div className="relative mx-auto max-w-5xl px-6 md:px-16 lg:px-24">
         <div className="mx-auto max-w-3xl text-center">
           <motion.div
@@ -23,16 +23,16 @@ export default function Mission() {
               whileInView={{ scaleX: 1 }}
               viewport={ov}
               transition={{ duration: 0.7, delay: 0.15 }}
-              className="block h-px w-7 origin-center bg-[var(--color-hair-light-strong)]"
+              className="block h-px w-7 origin-center bg-[var(--color-hair-dark-strong)]"
             />
-            <span className="eyebrow text-[var(--color-mute-light)]">About</span>
+            <span className="eyebrow text-[var(--color-mute-dark)]">About</span>
             <motion.span
               aria-hidden
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={ov}
               transition={{ duration: 0.7, delay: 0.15 }}
-              className="block h-px w-7 origin-center bg-[var(--color-hair-light-strong)]"
+              className="block h-px w-7 origin-center bg-[var(--color-hair-dark-strong)]"
             />
           </motion.div>
 
@@ -41,7 +41,7 @@ export default function Mission() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={ov}
             transition={{ duration: 0.75, delay: 0.15, ease }}
-            className="font-display mx-auto max-w-3xl text-[clamp(2rem,4.8vw,3.85rem)] font-light leading-[1.08] tracking-[-0.025em] text-[#0D0E0A]"
+            className="font-display mx-auto max-w-3xl text-[clamp(2rem,4.8vw,3.85rem)] font-light leading-[1.08] tracking-[-0.025em] text-[#EAEAEA]"
           >
             Backing the next generation of{" "}
             <em className="display-em">founders</em>.
@@ -52,7 +52,7 @@ export default function Mission() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={ov}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="editorial-body mx-auto mt-5 max-w-[58ch] text-[var(--color-mute-light)]"
+            className="editorial-body mx-auto mt-5 max-w-[58ch] text-[var(--color-mute-dark)]"
           >
             We lead pre-seed and seed rounds for founders at the University
             of Austin. Portfolio companies receive a $200K first check,

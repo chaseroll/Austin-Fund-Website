@@ -22,7 +22,7 @@ const fundStats: Stat[] = [
 
 export default function Thesis() {
   return (
-    <section className="relative overflow-hidden pt-4 pb-[var(--section-y)] text-[#0D0E0A] md:pt-8 md:pb-[var(--section-y-lg)]">
+    <section className="relative overflow-hidden pt-4 pb-[var(--section-y)] text-[#EAEAEA] md:pt-8 md:pb-[var(--section-y-lg)]">
       <div className="relative mx-auto max-w-5xl px-6 md:px-16 lg:px-24">
         <motion.div
           initial={{ opacity: 0 }}
@@ -37,16 +37,16 @@ export default function Thesis() {
             whileInView={{ scaleX: 1 }}
             viewport={ov}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="block h-px w-7 origin-center bg-[var(--color-hair-light-strong)]"
+            className="block h-px w-7 origin-center bg-[var(--color-hair-dark-strong)]"
           />
-          <span className="eyebrow text-[var(--color-mute-light)]">Fund I</span>
+          <span className="eyebrow text-[var(--color-mute-dark)]">Fund I</span>
           <motion.span
             aria-hidden
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={ov}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="block h-px w-7 origin-center bg-[var(--color-hair-light-strong)]"
+            className="block h-px w-7 origin-center bg-[var(--color-hair-dark-strong)]"
           />
         </motion.div>
 
@@ -60,39 +60,30 @@ export default function Thesis() {
           {/* Liquid Glass surface */}
           <div
             aria-hidden
-            className="absolute inset-0 rounded-[24px] bg-white/55"
+            className="absolute inset-0 rounded-[24px] bg-white/[0.03]"
             style={{
-              backdropFilter: "blur(24px) saturate(1.5)",
-              WebkitBackdropFilter: "blur(24px) saturate(1.5)",
+              backdropFilter: "blur(24px) saturate(1.4)",
+              WebkitBackdropFilter: "blur(24px) saturate(1.4)",
             }}
           />
           {/* Edge ring */}
           <div
             aria-hidden
-            className="absolute inset-0 rounded-[24px] ring-1 ring-inset ring-[var(--color-hair-light)]"
+            className="absolute inset-0 rounded-[24px] ring-1 ring-inset ring-[var(--color-hair-dark-strong)]"
           />
           {/* Top specular highlight */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[24px] bg-gradient-to-b from-white/55 to-transparent"
-          />
-          {/* Soft drop shadow */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -inset-x-6 -bottom-10 -top-2 rounded-[36px]"
-            style={{
-              boxShadow:
-                "0 30px 60px -30px rgba(13, 14, 10, 0.16), 0 12px 24px -16px rgba(13, 14, 10, 0.08)",
-            }}
+            className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[24px] bg-gradient-to-b from-white/[0.06] to-transparent"
           />
 
           <div className="relative p-8 md:p-12">
             <div className="flex items-center justify-between">
-              <h3 className="eyebrow text-[#0D0E0A]/85">Austin Fund</h3>
-              <span className="eyebrow inline-flex items-center gap-2 rounded-full bg-[#0D0E0A]/[0.04] px-2.5 py-1 text-[var(--color-mute-light)] ring-1 ring-inset ring-[var(--color-hair-light)]">
+              <h3 className="eyebrow text-[#EAEAEA]/85">Austin Fund</h3>
+              <span className="eyebrow inline-flex items-center gap-2 rounded-full bg-[#EAEAEA]/[0.04] px-2.5 py-1 text-[var(--color-mute-dark)] ring-1 ring-inset ring-[var(--color-hair-dark-strong)]">
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#0D0E0A]/30" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#0D0E0A]/70" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#EAEAEA]/30" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#EAEAEA]/70" />
                 </span>
                 Raising
               </span>
@@ -118,21 +109,21 @@ export default function Thesis() {
                   >
                     {stat.countValue ? (
                       <p
-                        className="font-display tabular-nums font-light leading-[1] tracking-[-0.025em] text-[#0D0E0A]"
+                        className="font-display tabular-nums font-light leading-[1] tracking-[-0.025em] text-[#EAEAEA]"
                         style={{ fontSize: "clamp(1.85rem, 3.6vw, 2.9rem)" }}
                       >
                         <AnimatedCounter value={stat.countValue} />
                       </p>
                     ) : (
                       <p
-                        className="font-display font-light leading-[1] tracking-[-0.04em] text-[#0D0E0A]"
+                        className="font-display font-light leading-[1] tracking-[-0.04em] text-[#EAEAEA]"
                         style={{ fontSize: "clamp(1.5rem, 3.4vw, 2.7rem)" }}
                       >
                         {stat.display}
                       </p>
                     )}
                   </div>
-                  <p className="eyebrow mt-3 text-[var(--color-mute-light)]">
+                  <p className="eyebrow mt-3 text-[var(--color-mute-dark)]">
                     {stat.label}
                   </p>
                 </motion.div>

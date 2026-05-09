@@ -25,8 +25,7 @@ export default function Navigation() {
 
     const lightSection = document.querySelector("[data-theme='light']");
     if (!lightSection) {
-      const heroEl = document.querySelector("section");
-      if (heroEl) setIsDark(heroEl.getBoundingClientRect().bottom > 60);
+      setIsDark(true);
       return;
     }
 
