@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import PretextCapitolLetters from "../effects/PretextCapitolLetters";
+import CapitolModel from "../effects/CapitolModel";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -43,8 +43,8 @@ export default function Hero() {
         style={{ y: illustrationY }}
         className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center"
       >
-        <div className="h-[88vh] w-full max-w-[1180px] -translate-y-[6%] opacity-[0.55] md:opacity-[0.7]">
-          <PretextCapitolLetters className="h-full w-full grayscale saturate-0" />
+        <div className="h-[88svh] w-full max-w-[1180px] -translate-y-[6%] opacity-[0.8]">
+          <CapitolModel />
         </div>
       </motion.div>
 
