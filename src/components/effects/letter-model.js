@@ -18,32 +18,24 @@ export function mountLetterModel(host, {
   const controller = new AbortController();
   const options = {signal:controller.signal};
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  let glyphs=[], width=1, height=1, dpr=1, frame=0, visible=false, last=0;
+  let glyphs=[], selectedGlyphs=[], width=1, height=1, dpr=1, frame=0, visible=false, last=0;
   const rest={yaw:restYaw,pitch:restPitch};
   let yaw=rest.yaw, pitch=rest.pitch, target={...rest}, follow={...rest};
   let yawVelocity=0, pitchVelocity=0, hasEntered=false, pointer=null;
   let paused=reduced.matches;
 
-  function draw(dt=0) {
-    if (!glyphs.length) return;
-    ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,width,height);
-    // Keep the original background's footprint, gray ink, and lower-edge fade.
+  function project(g, angleYaw, anglePitch) {
     const scale=Math.min(width*.90/baseWidth,height*fitHeight/baseHeight);
-    const cy=Math.cos(yaw), sy=Math.sin(yaw), cp=Math.cos(pitch), sp=Math.sin(pitch);
-    ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.font=letterStyle.font(width);
-    ctx.fillStyle=letterStyle.ink;
-    const rect=host.getBoundingClientRect();
-    const local=pointer&&!reduced.matches&&!paused?{x:(pointer.x-rect.left)*width/rect.width,y:(pointer.y-rect.top)*height/rect.height}:null;
-    const motionScale=letterMotion.scaleFor(width,height);
-    let lettersMoving=false;
-    const projected=glyphs.map(g=>{
-      const xx=g.x*cy+g.z*sy, zz=-g.x*sy+g.z*cy;
-      const yy=g.y*cp-zz*sp, depth=g.y*sp+zz*cp;
-      return {g,xx,yy,depth};
-    }).sort((a,b)=>b.depth-a.depth);
-    // Reserve screen space for each character. Without this, front and rear
-    // surfaces overlap into a dense wireframe unlike the footer's open type.
+    const cy=Math.cos(angleYaw), sy=Math.sin(angleYaw), cp=Math.cos(anglePitch), sp=Math.sin(anglePitch);
+    const xx=g.x*cy+g.z*sy, zz=-g.x*sy+g.z*cy;
+    const yy=g.y*cp-zz*sp, depth=g.y*sp+zz*cp;
+    const perspective=1400/(1400-depth);
+    return {x:width/2+xx*scale*perspective,y:height/2-yy*scale*perspective};
+  }
+  function selectGlyphs() {
+    // Sample once at rest, preserving source geometry order (the main
+    // architectural contours come first). Cursor movement NEVER reselects
+    // glyphs: each character remains attached to the same 3D point.
     const occupied = new Map();
     // Irregular projected points need a smaller exclusion ellipse than a
     // regular grid's pitch; using the full pitch roughly halves its density.
@@ -61,10 +53,23 @@ export function mountLetterModel(host, {
       occupied.get(key).push({x, y});
       return true;
     };
-    for (const {g,xx,yy,depth} of projected) {
-      const perspective=1400/(1400-depth);
-      const x=width/2+xx*scale*perspective,y=height/2-yy*scale*perspective;
-      if (!reserve(x,y)) { g.dx=0; g.dy=0; continue; }
+    selectedGlyphs=glyphs.filter(g=>{
+      const {x,y}=project(g,rest.yaw,rest.pitch);
+      return reserve(x,y);
+    });
+  }
+  function draw(dt=0) {
+    if (!selectedGlyphs.length) return;
+    ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,width,height);
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.font=letterStyle.font(width);
+    ctx.fillStyle=letterStyle.ink;
+    const rect=host.getBoundingClientRect();
+    const local=pointer&&!reduced.matches&&!paused?{x:(pointer.x-rect.left)*width/rect.width,y:(pointer.y-rect.top)*height/rect.height}:null;
+    const motionScale=letterMotion.scaleFor(width,height);
+    let lettersMoving=false;
+    for (const g of selectedGlyphs) {
+      const {x,y}=project(g,yaw,pitch);
       const fadeT=Math.max(0,Math.min(1,(y-height*fadeStart)/(height*fadeLength)));
       const verticalFade=1-fadeT*fadeT*(3-2*fadeT);
       ctx.globalAlpha=letterStyle.alpha(g.seed)*verticalFade;
@@ -105,7 +110,7 @@ export function mountLetterModel(host, {
   });
   const resizeObserver = new ResizeObserver(()=>{
     width=host.clientWidth;height=host.clientHeight;dpr=Math.min(devicePixelRatio||1,2);
-    canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);draw();
+    canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);selectGlyphs();draw();
   });
   resizeObserver.observe(host);
   const visibilityObserver = new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible){hasEntered=true;schedule();}else{input.reset();stop();}},{threshold:.01});
@@ -116,7 +121,7 @@ export function mountLetterModel(host, {
   Promise.resolve().then(() => loadGlyphs(controller.signal)).then(points => {
     if (controller.signal.aborted) return;
     glyphs = points.map((point, seed) => ({...point, seed, char: letterStyle.alphabet[seed % letterStyle.alphabet.length]}));
-    draw();schedule();
+    selectGlyphs();draw();schedule();
   }).catch(() => { /* The Capitol keeps its static fallback if loading fails. */ });
   return () => {
     controller.abort();
