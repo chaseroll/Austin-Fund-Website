@@ -45,7 +45,10 @@ export function mountLetterModel(host, {
     // Reserve screen space for each character. Without this, front and rear
     // surfaces overlap into a dense wireframe unlike the footer's open type.
     const occupied = new Map();
-    const column = letterStyle.column, row = width <= 760 ? 8 : letterStyle.row;
+    // Irregular projected points need a smaller exclusion ellipse than a
+    // regular grid's pitch; using the full pitch roughly halves its density.
+    const column = letterStyle.column * .75;
+    const row = (width <= 760 ? 8 : letterStyle.row) * .8;
     const reserve = (x, y) => {
       const cx = Math.floor(x / column), cy = Math.floor(y / row);
       for (let i = cx - 1; i <= cx + 1; i++) for (let j = cy - 1; j <= cy + 1; j++) {
