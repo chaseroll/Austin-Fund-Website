@@ -18,11 +18,12 @@ export function mountCapitol(host) {
   function draw(dt=0) {
     if (!glyphs.length) return;
     ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,width,height);
-    const scale=Math.min(width*.87/550,height*.84/405);
+    // Keep the original background's footprint, gray ink, and lower-edge fade.
+    const scale=Math.min(width*.98/500,height*.98/500);
     const cy=Math.cos(yaw), sy=Math.sin(yaw), cp=Math.cos(pitch), sp=Math.sin(pitch);
     ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.font=`500 ${Math.max(3.1,5.05*scale)}px ui-monospace, SFMono-Regular, Menlo, monospace`;
-    ctx.fillStyle=getComputedStyle(host).getPropertyValue('--model-ink').trim() || '#f7f7f1';
+    ctx.font=`400 ${Math.min(9.6,Math.max(5.7,5.8*scale+1.6))}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+    ctx.fillStyle='#b8b8b8';
     const rect=host.getBoundingClientRect();
     const local=pointer&&!reduced.matches&&!paused?{x:pointer.x-rect.left,y:pointer.y-rect.top}:null;
     const motionScale=letterMotion.scaleFor(width,height);
@@ -34,9 +35,11 @@ export function mountCapitol(host) {
     }).sort((a,b)=>a.depth-b.depth);
     for (const {g,xx,yy,depth} of projected) {
       const perspective=1400/(1400-depth);
-      ctx.globalAlpha=g.fade*Math.max(.20,Math.min(1,.65+depth/210));
       const x=width/2+xx*scale*perspective,y=height/2-yy*scale*perspective;
-      if(letterMotion.advance(g,x,y,local,dt,motionScale))lettersMoving=true;
+      const fadeT=Math.max(0,Math.min(1,(y-height*.55)/(height*.37)));
+      const verticalFade=1-fadeT*fadeT*(3-2*fadeT);
+      ctx.globalAlpha=g.fade*Math.max(.12,Math.min(.46,.34+depth/800))*verticalFade;
+      if(letterMotion.advance(g,x,y,local,dt,motionScale,.25))lettersMoving=true;
       ctx.fillText(g.char,x+g.dx,y+g.dy);
     }
     ctx.globalAlpha=1;host.classList.add('model-ready');return lettersMoving;
@@ -49,11 +52,11 @@ export function mountCapitol(host) {
     // A short response lag feeds a damped spring, retaining momentum as the
     // pointer stops or reverses. Substeps keep the same feel at any frame rate.
     for(let i=0;i<steps;i++){
-      const ease=1-Math.exp(-h/.11);
+      const ease=1-Math.exp(-h/.20);
       follow.yaw+=(target.yaw-follow.yaw)*ease;
       follow.pitch+=(target.pitch-follow.pitch)*ease;
-      yawVelocity+=(64*(follow.yaw-yaw)-11.5*yawVelocity)*h;
-      pitchVelocity+=(64*(follow.pitch-pitch)-11.5*pitchVelocity)*h;
+      yawVelocity+=(30*(follow.yaw-yaw)-11*yawVelocity)*h;
+      pitchVelocity+=(30*(follow.pitch-pitch)-11*pitchVelocity)*h;
       yaw+=yawVelocity*h;pitch+=pitchVelocity*h;
     }
     const lettersMoving=draw(dt);
@@ -67,8 +70,8 @@ export function mountCapitol(host) {
   function stop(){cancelAnimationFrame(frame);frame=0;}
   const input=letterMotion.bindPointer(host.closest("section") || host,{
     surface:host,
-    enabled:()=>!paused&&!reduced.matches&&hasEntered,
-    move:(point,aim)=>{pointer=point;target={yaw:rest.yaw+aim.x*.9,pitch:rest.pitch+aim.y*.32};schedule();},
+    enabled:()=>visible&&!paused&&!reduced.matches&&hasEntered,
+    move:(point,aim)=>{pointer=point;target={yaw:rest.yaw+aim.x*.24,pitch:rest.pitch+aim.y*.08};schedule();},
     reset:()=>{pointer=null;target={...rest};schedule();}
   });
   const resizeObserver = new ResizeObserver(()=>{
@@ -89,7 +92,7 @@ export function mountCapitol(host) {
     function add(x,y,z,fade=1){
       const key=[x,y,z].map(v=>Math.round(v/1.8)).join(':');
       if(unique.has(key))return;unique.add(key);
-      glyphs.push({x:x-250,y:233-y,z,char:letters[glyphs.length%letters.length],fade,dx:0,dy:0});
+      glyphs.push({x:x-250,y:250-y,z,char:letters[glyphs.length%letters.length],fade,dx:0,dy:0});
     }
     function letterLine(a,b,fade=1,spacing=5){
       const steps=Math.ceil(Math.hypot(...a.map((v,i)=>b[i]-v))/spacing);

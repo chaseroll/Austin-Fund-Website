@@ -43,7 +43,7 @@ export default function Hero() {
         style={{ y: illustrationY }}
         className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center"
       >
-        <div className="h-[88svh] w-full max-w-[1180px] -translate-y-[6%] opacity-[0.8]">
+        <div className="h-[88svh] w-full max-w-[1180px] -translate-y-[6%] opacity-[0.55] md:opacity-[0.7]">
           <CapitolModel />
         </div>
       </motion.div>

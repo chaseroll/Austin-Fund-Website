@@ -235,7 +235,7 @@ em.display-em,
 .capitol-model canvas, .capitol-model img {
   position: absolute; inset: 0; display: block; width: 100%; height: 100%;
 }
-.capitol-model img { object-fit: contain; padding: 7%; filter: brightness(0) invert(1); opacity: .65; }
+.capitol-model img { object-fit: contain; padding: 7%; filter: brightness(0) invert(1); opacity: .25; }
 .capitol-model.model-ready img { visibility: hidden; }
 
 .build-invitation {

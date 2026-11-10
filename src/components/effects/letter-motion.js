@@ -53,13 +53,13 @@
       document.addEventListener('visibilitychange', () => { if (document.hidden) clear(); }, passive);
       return {reset:clear, dispose:() => { controller.abort(); clearTimeout(releaseTimer); }};
     },
-    advance(point, x, y, pointer, dt, scale = 1) {
+    advance(point, x, y, pointer, dt, scale = 1, intensity = 1) {
       let tx = 0, ty = 0;
       if (pointer) {
         const dx = x - pointer.x, dy = y - pointer.y, distance = Math.hypot(dx, dy);
         const reach = radius * scale;
         if (distance < reach) {
-          const force = strength * scale * Math.pow(1 - distance / reach, 2);
+          const force = strength * scale * intensity * Math.pow(1 - distance / reach, 2);
           tx = dx / Math.max(distance, 1) * force;
           ty = dy / Math.max(distance, 1) * force;
         }
