@@ -11,7 +11,7 @@ export function mountBuildField(host) {
   const options = {signal:controller.signal};
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const alphabet = letterStyle.alphabet;
-  const ideas = ['START A COMPANY', 'BUILD A PROTOTYPE', 'MAKE A FILM', 'TEST AN IDEA', 'DESIGN A TOOL', 'EXPLORE A QUESTION'];
+  const ideas = ['START A COMPANY', 'BUILD A PRODUCT', 'FIND YOUR MARKET', 'RAISE YOUR FIRST ROUND', 'BUILD YOUR TEAM', 'SCALE YOUR COMPANY'];
   const disruptions = ideas.map(() => ({amount:0, until:0}));
   let width = 1, height = 1, dpr = 1, glyphs = [], visible = false;
   let frame = 0, last = 0, elapsed = 0, pointer = null;
