@@ -10,7 +10,7 @@ for (const name of ['letter-motion', 'letter-style']) {
 }
 const {mountLetterModel} = await import(moduleUrl(rendererSource));
 
-test('a rotating model retains every character and moves continuously; reduced motion and disposal stop it', async () => {
+for (const resamplePaths of [false, true]) test(`${resamplePaths ? 'Architectural strokes' : 'Point clouds'} retain their letters through rotation; reduced motion and disposal stop them`, async () => {
   const keys = ['window','document','innerWidth','innerHeight','devicePixelRatio','matchMedia','ResizeObserver','IntersectionObserver','requestAnimationFrame','cancelAnimationFrame'];
   const previous = new Map(keys.map(key => [key, Object.getOwnPropertyDescriptor(globalThis, key)]));
   const win = new EventTarget(), doc = new EventTarget(), host = new EventTarget(), media = new EventTarget();
@@ -57,9 +57,9 @@ test('a rotating model retains every character and moves continuously; reduced m
   try {
     const points = [];
     for (let x = -180; x <= 180; x += 6) for (let y = -180; y <= 180; y += 6) {
-      points.push({x, y, z: 40 * Math.cos(x / 60), fade: 1, dx: 0, dy: 0});
+      points.push({x, y, z: 40 * Math.cos(x / 60), path:x, fade: 1, dx: 0, dy: 0});
     }
-    dispose = mountLetterModel(host, {loadGlyphs: () => points});
+    dispose = mountLetterModel(host, {loadGlyphs: () => points, resamplePaths});
     await new Promise(resolve => setImmediate(resolve));
     step();
     const initial = rendered.map(point => ({...point}));

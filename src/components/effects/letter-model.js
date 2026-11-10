@@ -5,6 +5,7 @@ import { letterStyle } from './letter-style';
 /** @param {HTMLElement} host */
 export function mountLetterModel(host, {
   loadGlyphs,
+  resamplePaths = false,
   baseWidth = 500,
   baseHeight = 500,
   fitHeight = .98,
@@ -33,6 +34,34 @@ export function mountLetterModel(host, {
     return {x:width/2+xx*scale*perspective,y:height/2-yy*scale*perspective};
   }
   function selectGlyphs() {
+    let candidates = glyphs;
+    if (resamplePaths) {
+      const paths = new Map();
+      for (const g of glyphs) {
+        if (!paths.has(g.path)) paths.set(g.path, []);
+        paths.get(g.path).push(g);
+      }
+      candidates = [];
+      const pitchX=letterStyle.column, pitchY=width<=760 ? 8 : letterStyle.row;
+      for (const path of paths.values()) {
+        const distances=[0];
+        for (let i=1;i<path.length;i++) {
+          const a=project(path[i-1],rest.yaw,rest.pitch),b=project(path[i],rest.yaw,rest.pitch);
+          distances.push(distances[i-1]+Math.hypot((b.x-a.x)/pitchX,(b.y-a.y)/pitchY));
+        }
+        const total=distances.at(-1), count=Math.max(1,Math.floor(total));
+        let segment=1;
+        for (let i=0;i<=count;i++) {
+          const distance=total*i/count;
+          while (segment<path.length-1 && distances[segment]<distance) segment++;
+          const a=path[segment-1],b=path[segment] || a;
+          const t=(distance-distances[segment-1])/(distances[segment]-distances[segment-1] || 1);
+          const seed=candidates.length;
+          candidates.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,z:a.z+(b.z-a.z)*t,
+            dx:0,dy:0,seed,char:letterStyle.alphabet[seed%letterStyle.alphabet.length]});
+        }
+      }
+    }
     // Sample once at rest, preserving source geometry order (the main
     // architectural contours come first). Cursor movement NEVER reselects
     // glyphs: each character remains attached to the same 3D point.
@@ -53,7 +82,7 @@ export function mountLetterModel(host, {
       occupied.get(key).push({x, y});
       return true;
     };
-    selectedGlyphs=glyphs.filter(g=>{
+    selectedGlyphs=candidates.filter(g=>{
       const {x,y}=project(g,rest.yaw,rest.pitch);
       return reserve(x,y);
     });
@@ -117,7 +146,7 @@ export function mountLetterModel(host, {
   visibilityObserver.observe(host);
   window.addEventListener('scroll',()=>{if(pointer)schedule();},{...options,passive:true});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else schedule();},options);
-  reduced.addEventListener('change',()=>{paused=reduced.matches;if(reduced.matches){input.reset();stop();target={...rest};yaw=rest.yaw;pitch=rest.pitch;follow={...rest};yawVelocity=0;pitchVelocity=0;pointer=null;for(const g of glyphs){g.dx=0;g.dy=0;}draw();}else schedule();},options);
+  reduced.addEventListener('change',()=>{paused=reduced.matches;if(reduced.matches){input.reset();stop();target={...rest};yaw=rest.yaw;pitch=rest.pitch;follow={...rest};yawVelocity=0;pitchVelocity=0;pointer=null;for(const g of selectedGlyphs){g.dx=0;g.dy=0;}draw();}else schedule();},options);
   Promise.resolve().then(() => loadGlyphs(controller.signal)).then(points => {
     if (controller.signal.aborted) return;
     glyphs = points.map((point, seed) => ({...point, seed, char: letterStyle.alphabet[seed % letterStyle.alphabet.length]}));
