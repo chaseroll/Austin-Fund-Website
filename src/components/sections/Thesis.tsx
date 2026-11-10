@@ -9,7 +9,6 @@ const ease = [0.22, 1, 0.36, 1] as const;
 type Stat = {
   label: string;
   display: string;
-  /** When set, the value animates as a counter; otherwise it renders as static text. */
   countValue?: string;
 };
 
@@ -39,7 +38,7 @@ export default function Thesis() {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="block h-px w-7 origin-center bg-[var(--color-hair-dark-strong)]"
           />
-          <span className="eyebrow text-[var(--color-mute-dark)]">Fund I</span>
+          <h2 className="eyebrow text-[var(--color-mute-dark)]">Fund I</h2>
           <motion.span
             aria-hidden
             initial={{ scaleX: 0 }}
@@ -51,85 +50,34 @@ export default function Thesis() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={ov}
-          transition={{ duration: 0.8, delay: 0.1, ease }}
-          className="relative mx-auto w-full max-w-3xl"
+          transition={{ duration: 0.7, delay: 0.1, ease }}
+          className="mx-auto w-full max-w-3xl border-y border-[var(--color-hair-dark-strong)] py-8 md:py-10"
         >
-          {/* Liquid Glass surface */}
-          <div
-            aria-hidden
-            className="absolute inset-0 rounded-[24px] bg-white/[0.03]"
-            style={{
-              backdropFilter: "blur(24px) saturate(1.4)",
-              WebkitBackdropFilter: "blur(24px) saturate(1.4)",
-            }}
-          />
-          {/* Edge ring */}
-          <div
-            aria-hidden
-            className="absolute inset-0 rounded-[24px] ring-1 ring-inset ring-[var(--color-hair-dark-strong)]"
-          />
-          {/* Top specular highlight */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[24px] bg-gradient-to-b from-white/[0.06] to-transparent"
-          />
-
-          <div className="relative p-8 md:p-12">
-            <div className="flex items-center justify-between">
-              <h3 className="eyebrow text-[#EAEAEA]/85">Austin Fund</h3>
-              <span className="eyebrow inline-flex items-center gap-2 rounded-full bg-[#EAEAEA]/[0.04] px-2.5 py-1 text-[var(--color-mute-dark)] ring-1 ring-inset ring-[var(--color-hair-dark-strong)]">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#EAEAEA]/30" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#EAEAEA]/70" />
-                </span>
-                Raising
-              </span>
-            </div>
-
-            <div className="mt-10 grid grid-cols-2 gap-y-8 gap-x-6 md:mt-12 md:grid-cols-4 md:gap-x-10">
-              {fundStats.map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={ov}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.2 + i * 0.07,
-                    ease,
-                  }}
-                  className="flex flex-col items-center text-center"
-                >
-                  <div
-                    className="flex items-end justify-center"
-                    style={{ height: "clamp(1.85rem, 3.6vw, 2.9rem)" }}
-                  >
-                    {stat.countValue ? (
-                      <p
-                        className="font-display tabular-nums font-light leading-[1] tracking-[-0.025em] text-[#EAEAEA]"
-                        style={{ fontSize: "clamp(1.85rem, 3.6vw, 2.9rem)" }}
-                      >
-                        <AnimatedCounter value={stat.countValue} />
-                      </p>
-                    ) : (
-                      <p
-                        className="font-display font-light leading-[1] tracking-[-0.04em] text-[#EAEAEA]"
-                        style={{ fontSize: "clamp(1.5rem, 3.4vw, 2.7rem)" }}
-                      >
-                        {stat.display}
-                      </p>
-                    )}
-                  </div>
-                  <p className="eyebrow mt-3 text-[var(--color-mute-dark)]">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+          <div className="flex items-center justify-between gap-6">
+            <span className="eyebrow text-[#EAEAEA]/85">Austin Fund</span>
+            <span className="eyebrow text-[var(--color-mute-dark)]">Raising</span>
           </div>
+
+          <dl className="mt-10 grid grid-cols-2 gap-y-8 md:mt-12 md:grid-cols-4">
+            {fundStats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={ov}
+                transition={{ duration: 0.5, delay: 0.2 + i * 0.07, ease }}
+                className={`flex min-w-0 flex-col items-center border-[var(--color-hair-dark-strong)] px-2 text-center ${i % 2 === 1 ? "border-l" : ""} ${i === 2 ? "md:border-l" : ""}`}
+              >
+                <dt className="eyebrow order-2 mt-3 text-[var(--color-mute-dark)]">{stat.label}</dt>
+                <dd className="font-display tabular-nums font-light leading-none tracking-[-0.025em] text-[#EAEAEA] text-[clamp(1.75rem,3.4vw,2.7rem)]">
+                  {stat.countValue ? <AnimatedCounter value={stat.countValue} /> : stat.display}
+                </dd>
+              </motion.div>
+            ))}
+          </dl>
         </motion.div>
       </div>
     </section>
