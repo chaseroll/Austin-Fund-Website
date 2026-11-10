@@ -129,25 +129,6 @@ export default function Navigation() {
               <Logo variant="wordmark" />
             </Link>
 
-            {/* Discreet cross-link to the sibling site (NorthStar): sits as a
-                piece of typography next to the wordmark, never as a button.
-                Hidden on mobile; appears in the mobile menu as the first item. */}
-            <a
-              href="https://northstar.uaustin.fund"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit NorthStar — the Austin Fund's non-dilutive grants program for founders at the University of Austin"
-              className={`nav-link hidden md:inline-flex items-baseline transition-colors duration-[var(--dur-default)] ease-[var(--ease-standard)] ${
-                isDark
-                  ? "text-[#EAEAEA]/65 hover:text-[#EAEAEA]"
-                  : "text-[#0D0E0A]/55 hover:text-[#0D0E0A]"
-              }`}
-            >
-              {"\u2003·\u2003NorthStar\u2009"}
-              <span aria-hidden className="text-[0.85em]">
-                {"\u2197"}
-              </span>
-            </a>
           </div>
 
           <div className="hidden items-center gap-10 md:flex">
@@ -248,32 +229,6 @@ export default function Navigation() {
 
             <div className="relative flex h-full flex-col justify-between px-8 pt-28 pb-14">
               <div className="flex flex-col items-start">
-                {/* Sibling-site cross-link, mirrored from the desktop nav.
-                    Sits at the top of the menu and is divided from the
-                    in-site nav by a hairline so it reads as a separate
-                    plane. */}
-                <motion.a
-                  key="NorthStar"
-                  href="https://northstar.uaustin.fund"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Visit NorthStar — the Austin Fund's non-dilutive grants program for founders at the University of Austin"
-                  initial={{ opacity: 0, x: -24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -16 }}
-                  transition={{ duration: 0.5, delay: 0, ease }}
-                  onClick={() => setMobileOpen(false)}
-                  className="group inline-flex items-baseline gap-2 self-stretch border-b border-[var(--color-hair-dark-strong)] py-3.5 text-[2.4rem] font-light leading-[1.05] tracking-[-0.025em] text-[#EAEAEA]/80 transition-opacity duration-[var(--dur-default)] ease-[var(--ease-standard)] hover:opacity-60"
-                >
-                  NorthStar
-                  <span
-                    aria-hidden
-                    className="text-[0.55em] text-[#EAEAEA]/60"
-                  >
-                    {"\u2197"}
-                  </span>
-                </motion.a>
-
                 {[
                   { label: "Home", href: "/", delay: 0.1, internal: true },
                   {

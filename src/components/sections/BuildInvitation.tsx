@@ -18,7 +18,7 @@ export default function BuildInvitation() {
     >
       <canvas className="build-letter-field" aria-hidden="true" />
       <div className="build-invitation-copy">
-        <h2 id="build-title">What will <em>you build?</em></h2>
+        <h2 id="build-title">Tell us what <em>you’re building.</em></h2>
         <a className="contact-link" href="mailto:info@uaustin.fund">
           Get in touch
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

@@ -1,4 +1,4 @@
-/* Loose letter ribbons resolve into possibilities, then return to the field. */
+/* Letter ribbons resolve into fund details, then return to the field. */
 import { letterMotion } from './letter-motion';
 import { letterStyle } from './letter-style';
 
@@ -11,7 +11,7 @@ export function mountBuildField(host) {
   const options = {signal:controller.signal};
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const alphabet = letterStyle.alphabet;
-  const ideas = ['START A COMPANY', 'BUILD A PRODUCT', 'FIND YOUR MARKET', 'RAISE YOUR FIRST ROUND', 'BUILD YOUR TEAM', 'SCALE YOUR COMPANY'];
+  const ideas = ['PRE-SEED', 'SEED', '$200K FIRST CHECK', 'UATX FOUNDERS', 'SYNDICATE ACCESS', 'DEMO DAY'];
   const disruptions = ideas.map(() => ({amount:0, until:0}));
   let width = 1, height = 1, dpr = 1, glyphs = [], visible = false;
   let frame = 0, last = 0, elapsed = 0, pointer = null;
