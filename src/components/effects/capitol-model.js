@@ -19,7 +19,7 @@ export function mountCapitol(host) {
     if (!glyphs.length) return;
     ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,width,height);
     // Keep the original background's footprint, gray ink, and lower-edge fade.
-    const scale=Math.min(width*.98/500,height*.98/500);
+    const scale=Math.min(width*.90/500,height*.98/500);
     const cy=Math.cos(yaw), sy=Math.sin(yaw), cp=Math.cos(pitch), sp=Math.sin(pitch);
     ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.font=`400 ${Math.min(9.6,Math.max(5.7,5.8*scale+1.6))}px ui-monospace, SFMono-Regular, Menlo, monospace`;
