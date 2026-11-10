@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,6 +14,8 @@ export default function Navigation() {
   const [isDark, setIsDark] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const onScroll = useCallback(() => {
     setScrolled(window.scrollY > 20);
@@ -43,13 +45,34 @@ export default function Navigation() {
   }, [onScroll]);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    if (!mobileOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const button = menuButtonRef.current;
+    const desktop = matchMedia("(min-width: 768px)");
+    const closeOnDesktop = () => { if (desktop.matches) setMobileOpen(false); };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMobileOpen(false);
+        button?.focus();
+      }
+      if (event.key === "Tab") {
+        const links = Array.from(menuRef.current?.querySelectorAll<HTMLElement>("a[href]") ?? []);
+        const first = button, last = links.at(-1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault(); last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault(); first?.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    desktop.addEventListener("change", closeOnDesktop);
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+      desktop.removeEventListener("change", closeOnDesktop);
     };
   }, [mobileOpen]);
 
@@ -131,6 +154,7 @@ export default function Navigation() {
             <Link
               href="/portfolio"
               className={linkClass(pathname === "/portfolio")}
+              aria-current={isPortfolio ? "page" : undefined}
             >
               Portfolio
               {pathname === "/portfolio" && (
@@ -150,13 +174,15 @@ export default function Navigation() {
           </div>
 
           <button
+            ref={menuButtonRef}
+            aria-controls="mobile-navigation"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="relative z-[60] flex h-9 w-9 flex-col items-center justify-center gap-1.5 rounded-full md:hidden"
+            className="relative z-[60] flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full md:hidden"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
           >
             <motion.span
-              animate={mobileOpen ? { rotate: 45, y: 4.5 } : { rotate: 0, y: 0 }}
+              animate={mobileOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.3, ease }}
               className={`block h-px w-5 origin-center transition-colors duration-[var(--dur-slow)] ${
                 mobileOpen
@@ -179,7 +205,7 @@ export default function Navigation() {
             />
             <motion.span
               animate={
-                mobileOpen ? { rotate: -45, y: -4.5 } : { rotate: 0, y: 0 }
+                mobileOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }
               }
               transition={{ duration: 0.3, ease }}
               className={`block h-px w-5 origin-center transition-colors duration-[var(--dur-slow)] ${
@@ -201,6 +227,10 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease }}
+            ref={menuRef}
+            id="mobile-navigation"
+            role="navigation"
+            aria-label="Mobile navigation"
             className="fixed inset-0 z-40"
           >
             <div
@@ -281,7 +311,7 @@ export default function Navigation() {
                   if (item.internal) {
                     return (
                       <motion.div key={item.label} {...motionProps}>
-                        <Link href={item.href} className={itemClass}>
+                        <Link href={item.href} className={itemClass} aria-current={pathname === item.href ? "page" : undefined}>
                           {item.label}
                           {indicator}
                         </Link>

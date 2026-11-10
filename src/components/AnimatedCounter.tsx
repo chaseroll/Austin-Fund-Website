@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useInView } from "framer-motion";
+import { useInView, useReducedMotion } from "framer-motion";
 
 type Parsed =
   | { kind: "static"; value: string }
@@ -40,12 +40,13 @@ export default function AnimatedCounter({
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
+  const reducedMotion = useReducedMotion();
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const parsed = useMemo(() => parseValue(value), [value]);
   const [display, setDisplay] = useState(() => formatInitial(parsed));
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || reducedMotion) return;
 
     if (parsed.kind === "static") {
       const id = requestAnimationFrame(() => setDisplay(parsed.value));
@@ -77,11 +78,11 @@ export default function AnimatedCounter({
     return () => {
       if (frame !== 0) cancelAnimationFrame(frame);
     };
-  }, [isInView, parsed, value]);
+  }, [isInView, parsed, value, reducedMotion]);
 
   return (
     <span ref={ref} className={className}>
-      {display}
+      {reducedMotion ? value : display}
     </span>
   );
 }

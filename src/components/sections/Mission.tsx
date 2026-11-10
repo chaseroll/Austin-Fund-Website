@@ -58,7 +58,7 @@ export default function Mission() {
             of Austin. Portfolio companies receive a $200K first check,
             direct access to the Fund&apos;s Syndicate network, and the
             opportunity to present at a Demo Day in front of partnered
-            founders, angels, and VC&apos;s.
+            founders, angels, and VCs.
           </motion.p>
         </div>
       </div>

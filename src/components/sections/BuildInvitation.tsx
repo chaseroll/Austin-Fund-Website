@@ -19,12 +19,12 @@ export default function BuildInvitation() {
       <canvas className="build-letter-field" aria-hidden="true" />
       <div className="build-invitation-copy">
         <h2 id="build-title">What will <em>you build?</em></h2>
-        <a className="build-contact" href="mailto:info@uaustin.fund">
+        <a className="contact-link" href="mailto:info@uaustin.fund">
           Get in touch
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
             strokeLinejoin="round" aria-hidden="true">
-            <path d="M4 20 20 4M4 4h16v16" />
+            <path d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
           </svg>
         </a>
       </div>

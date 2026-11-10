@@ -1,5 +1,19 @@
 import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
+import MotionPreferences from "@/components/MotionPreferences";
 import "./globals.css";
+
+const generalSans = localFont({
+  src: [
+    {path: "../../public/assets/fonts/GeneralSans-Extralight.woff", weight: "200", style: "normal"},
+    {path: "../../public/assets/fonts/GeneralSans-Light.woff", weight: "300", style: "normal"},
+    {path: "../../public/assets/fonts/GeneralSans-LightItalic.woff", weight: "300", style: "italic"},
+    {path: "../../public/assets/fonts/GeneralSans-Regular.woff", weight: "400", style: "normal"},
+    {path: "../../public/assets/fonts/GeneralSans-Medium.woff", weight: "500", style: "normal"},
+  ],
+  variable: "--font-general-sans",
+  display: "swap",
+});
 
 const SITE_URL = "https://www.uaustin.fund";
 
@@ -55,20 +69,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link
-          rel="preconnect"
-          href="https://fonts.cdnfonts.com"
-          crossOrigin="anonymous"
-        />
-        <link rel="dns-prefetch" href="https://fonts.cdnfonts.com" />
-        <link
-          href="https://fonts.cdnfonts.com/css/general-sans"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="antialiased">{children}</body>
+    <html lang="en" className={generalSans.variable}>
+      <body className="antialiased"><MotionPreferences>{children}</MotionPreferences></body>
     </html>
   );
 }

@@ -1,5 +1,6 @@
 /* Loose letter ribbons resolve into possibilities, then return to the field. */
 import { letterMotion } from './letter-motion';
+import { letterStyle } from './letter-style';
 
 /** @param {HTMLElement} host */
 export function mountBuildField(host) {
@@ -9,7 +10,7 @@ export function mountBuildField(host) {
   const controller = new AbortController();
   const options = {signal:controller.signal};
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const alphabet = 'UniversityofAustinAustinFundResearchBuildCreate';
+  const alphabet = letterStyle.alphabet;
   const ideas = ['START A COMPANY', 'BUILD A PROTOTYPE', 'MAKE A FILM', 'TEST AN IDEA', 'DESIGN A TOOL', 'EXPLORE A QUESTION'];
   const disruptions = ideas.map(() => ({amount:0, until:0}));
   let width = 1, height = 1, dpr = 1, glyphs = [], visible = false;
@@ -28,25 +29,25 @@ export function mountBuildField(host) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, width, height);
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillStyle = getComputedStyle(host).getPropertyValue('--model-ink').trim() || '#f7f7f1';
+    ctx.fillStyle = getComputedStyle(host).getPropertyValue('--model-ink').trim() || letterStyle.ink;
     const mobile = width <= 760;
     const still = reduced.matches || paused;
     const t = still ? 0 : elapsed;
     const rect = host.getBoundingClientRect();
     const local = pointer && !still ? {x: pointer.x - rect.left, y: pointer.y - rect.top} : null;
     const motionScale = letterMotion.scaleFor(width, height);
-    ctx.font = `${mobile ? 8 : 9}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+    ctx.font = letterStyle.font(width);
     for (const g of glyphs) {
       const x = g.u * width + Math.sin(t * .12 + g.row * .25) * 7;
       const wave = Math.sin(g.u * Math.PI * 2 + g.row * .13 + t * .065);
-      const y = height * (g.bottom ? .82 : .12) + wave * (mobile ? 24 : 42) + g.row * (mobile ? 8 : 9);
+      const y = height * (g.bottom ? .82 : .12) + wave * (mobile ? 24 : 42) + g.row * (mobile ? 8 : letterStyle.row);
       if (still) { g.dx = 0; g.dy = 0; }
       else letterMotion.advance(g, x, y, local, dt, motionScale);
       const tick = Math.floor(t * 3 + g.seed * 30);
       // Most letters hold their place; small staggered groups change together.
       const char = alphabet[(g.seed + (hash(tick + g.seed) > .82 ? tick : 0)) % alphabet.length];
       const edge = Math.sin(Math.PI * Math.max(0, Math.min(1, g.u))) ** .45;
-      ctx.globalAlpha = (.08 + hash(g.seed) * .19) * edge;
+      ctx.globalAlpha = letterStyle.alpha(g.seed) * edge;
       ctx.fillText(char, x + g.dx, y + g.dy);
     }
 
@@ -97,7 +98,7 @@ export function mountBuildField(host) {
     width = host.clientWidth; height = host.clientHeight; dpr = Math.min(devicePixelRatio || 1, 2);
     canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
     glyphs = [];
-    const columns = Math.ceil(width / 12);
+    const columns = Math.ceil(width / letterStyle.column);
     for (let side = 0; side < 2; side++) for (let row = 0; row < 7; row++) for (let col = 0; col <= columns; col++) {
       const seed = side * 10000 + row * (columns + 1) + col;
       if (hash(seed + 100) < .15) continue;
